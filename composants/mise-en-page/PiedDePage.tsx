@@ -18,6 +18,19 @@ const legal = [
   { href: '/legal/charte-inclusive', label: 'Charte inclusive' },
 ]
 
+function LienNav({ locale, href, label }: { locale: string; href: string; label: string }) {
+  return (
+    <li>
+      <Link
+        href={'/' + locale + href}
+        className="text-[13px] text-white/35 hover:text-[#E8C97A] transition-colors duration-200"
+      >
+        {label}
+      </Link>
+    </li>
+  )
+}
+
 export default function PiedDePage({ locale }: { locale: string }) {
   const t = useTranslations('footer')
   const tn = useTranslations('nav')
@@ -41,7 +54,7 @@ export default function PiedDePage({ locale }: { locale: string }) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
 
           <div className="lg:col-span-1">
-            <Link href={`/${locale}`} className="flex flex-col leading-none mb-6">
+            <Link href={'/' + locale} className="flex flex-col leading-none mb-6">
               <span className="font-display text-lg font-bold text-white tracking-wide">
                 Miss Ronde <span className="text-[#C9A84C]">&amp;</span> Belle
               </span>
@@ -77,14 +90,7 @@ export default function PiedDePage({ locale }: { locale: string }) {
             </h4>
             <ul className="space-y-3">
               {liens.map((lien) => (
-                <li key={lien.href}>
-                  <Link
-                    href={`/${locale}${lien.href}`}
-                    className="text-[13px] text-white/35 hover:text-[#E8C97A] transition-colors duration-200"
-                  >
-                    {lien.label}
-                  </Link>
-                </li>
+                <LienNav key={lien.href} locale={locale} href={lien.href} label={lien.label} />
               ))}
             </ul>
           </div>
@@ -97,7 +103,7 @@ export default function PiedDePage({ locale }: { locale: string }) {
               {legal.map((l) => (
                 <li key={l.href}>
                   <Link
-                    href={`/${locale}${l.href}`}
+                    href={'/' + locale + l.href}
                     className="text-[13px] text-white/35 hover:text-[#E8C97A] transition-colors duration-200"
                   >
                     {l.label}
@@ -127,7 +133,7 @@ export default function PiedDePage({ locale }: { locale: string }) {
               </li>
             </ul>
             <Link
-              href={`/${locale}/candidatures`}
+              href={'/' + locale + '/candidatures'}
               className="inline-block mt-8 bg-[#C9A84C]/10 hover:bg-[#C9A84C] border border-[#C9A84C]/30 hover:border-[#C9A84C] text-[#C9A84C] hover:text-black text-[10px] font-bold tracking-[0.2em] uppercase px-6 py-3 transition-all duration-300"
             >
               Candidater 2026
