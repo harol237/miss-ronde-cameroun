@@ -1,0 +1,60 @@
+{
+  "nav": {
+    "accueil": "Inicio",
+    "candidatures": "Candidaturas",
+    "galerie": "Galería",
+    "actualites": "Noticias",
+    "editions": "Ediciones",
+    "billetterie": "Entradas",
+    "contact": "Contacto",
+    "aPropos": "Acerca de"
+  },
+  "hero": {
+    "edition": "Edición 2025",
+    "titre": "Miss Ronde & Belle Cameroun",
+    "slogan": "Soy Redondamente Bella y lo asumo…",
+    "btnCandidater": "Candidatarse",
+    "btnTickets": "Comprar una entrada"
+  },
+  "apropos": {
+    "label": "Acerca de",
+    "titre": "Celebrando la belleza en todo su esplendor",
+    "texte1": "Miss Ronde & Belle Cameroun es el primer concurso nacional que celebra a la mujer camerunesa en toda su diversidad y magnificencia. Belleza, gracia, inteligencia — ningún criterio de talla define aquí a la mujer que merece ser coronada.",
+    "texte2": "Un evento que lleva con orgullo los colores de Camerún y redefine los estándares de belleza africana.",
+    "stat1Nombre": "237",
+    "stat1Label": "Tribus, una belleza",
+    "stat2Nombre": "10",
+    "stat2Label": "Regiones representadas",
+    "stat3Nombre": "1",
+    "stat3Label": "Corona a ganar"
+  },
+  "participer": {
+    "label": "Participar",
+    "titre": "¿Cómo unirse a la aventura?",
+    "etape1Titre": "Candidatarse",
+    "etape1Texte": "Rellena el formulario de candidatura en línea y envía tus fotos.",
+    "etape2Titre": "Selección",
+    "etape2Texte": "Nuestro jurado selecciona a las candidatas para las preselecciones regionales.",
+    "etape3Titre": "Gran Final",
+    "etape3Texte": "Las finalistas compiten en una velada de gala inolvidable en Yaundé.",
+    "btnCandidater": "Enviar mi candidatura"
+  },
+  "galerie": {
+    "label": "Galería",
+    "titre": "Brillan, inspiran",
+    "btnVoir": "Ver galería completa"
+  },
+  "tickets": {
+    "label": "Entradas",
+    "titre": "Únete a nosotros para la gran final",
+    "desc": "Pago disponible con tarjeta bancaria, PayPal, Orange Money y MTN Mobile Money.",
+    "btnVoir": "Ver entradas"
+  },
+  "footer": {
+    "slogan": "Belleza sin fronteras, el orgullo de una nación.",
+    "navigation": "Navegación",
+    "contact": "Contacto",
+    "email": "contact@missrondecameroun.cm",
+    "droits": "© 2025 Miss Ronde & Belle Cameroun. Todos los derechos reservados."
+  }
+}

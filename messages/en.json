@@ -1,0 +1,60 @@
+{
+  "nav": {
+    "accueil": "Home",
+    "candidatures": "Applications",
+    "galerie": "Gallery",
+    "actualites": "News",
+    "editions": "Editions",
+    "billetterie": "Tickets",
+    "contact": "Contact",
+    "aPropos": "About"
+  },
+  "hero": {
+    "edition": "2025 Edition",
+    "titre": "Miss Ronde & Belle Cameroun",
+    "slogan": "I am Roundly Beautiful and I own it…",
+    "btnCandidater": "Apply",
+    "btnTickets": "Buy a ticket"
+  },
+  "apropos": {
+    "label": "About",
+    "titre": "Celebrating beauty in all its splendor",
+    "texte1": "Miss Ronde & Belle Cameroun is the first national pageant celebrating Cameroonian women in all their diversity and magnificence. Beauty, grace, intelligence — no size criteria defines the woman worthy of being crowned here.",
+    "texte2": "An event that proudly carries the colors of Cameroon and redefines African beauty standards.",
+    "stat1Nombre": "237",
+    "stat1Label": "Tribes, one beauty",
+    "stat2Nombre": "10",
+    "stat2Label": "Regions represented",
+    "stat3Nombre": "1",
+    "stat3Label": "Crown to win"
+  },
+  "participer": {
+    "label": "Participate",
+    "titre": "How to join the adventure?",
+    "etape1Titre": "Apply",
+    "etape1Texte": "Fill out the online application form and submit your photos.",
+    "etape2Titre": "Selection",
+    "etape2Texte": "Our jury selects candidates for regional pre-selections.",
+    "etape3Titre": "Grand Finale",
+    "etape3Texte": "Finalists compete at an unforgettable gala evening in Yaoundé.",
+    "btnCandidater": "Submit my application"
+  },
+  "galerie": {
+    "label": "Gallery",
+    "titre": "They shine, they inspire",
+    "btnVoir": "View full gallery"
+  },
+  "tickets": {
+    "label": "Tickets",
+    "titre": "Join us for the grand finale",
+    "desc": "Payment available by credit card, PayPal, Orange Money & MTN Mobile Money.",
+    "btnVoir": "View tickets"
+  },
+  "footer": {
+    "slogan": "Beauty without borders, the pride of a nation.",
+    "navigation": "Navigation",
+    "contact": "Contact",
+    "email": "contact@missrondecameroun.cm",
+    "droits": "© 2025 Miss Ronde & Belle Cameroun. All rights reserved."
+  }
+}

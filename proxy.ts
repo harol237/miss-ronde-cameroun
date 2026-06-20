@@ -1,10 +1,12 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import createMiddleware from 'next-intl/middleware'
+import { locales, defaultLocale } from './i18n/config'
 
-export function proxy(request: NextRequest) {
-  return NextResponse.next()
-}
+export default createMiddleware({
+  locales,
+  defaultLocale,
+  localePrefix: 'as-needed',
+})
 
 export const config = {
-  matcher: ['/tableau-de-bord/:path*'],
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
 }

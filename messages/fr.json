@@ -1,0 +1,60 @@
+{
+  "nav": {
+    "accueil": "Accueil",
+    "candidatures": "Candidatures",
+    "galerie": "Galerie",
+    "actualites": "Actualités",
+    "editions": "Éditions",
+    "billetterie": "Billetterie",
+    "contact": "Contact",
+    "aPropos": "À propos"
+  },
+  "hero": {
+    "edition": "Édition 2025",
+    "titre": "Miss Ronde & Belle Cameroun",
+    "slogan": "Je suis Rondement Belle et je m'assume…",
+    "btnCandidater": "Candidater",
+    "btnTickets": "Acheter un ticket"
+  },
+  "apropos": {
+    "label": "À propos",
+    "titre": "Célébrer la beauté dans toute sa splendeur",
+    "texte1": "Miss Ronde & Belle Cameroun est le premier concours national qui célèbre la femme camerounaise dans toute sa diversité et sa magnificence. Beauté, grâce, intelligence — aucun critère de taille ne définit ici la femme qui mérite d'être couronnée.",
+    "texte2": "Un événement qui porte haut les couleurs du Cameroun et redéfinit les standards de beauté africaine.",
+    "stat1Nombre": "237",
+    "stat1Label": "Tribus, une beauté",
+    "stat2Nombre": "10",
+    "stat2Label": "Régions représentées",
+    "stat3Nombre": "1",
+    "stat3Label": "Couronne à gagner"
+  },
+  "participer": {
+    "label": "Participer",
+    "titre": "Comment rejoindre l'aventure ?",
+    "etape1Titre": "Candidater",
+    "etape1Texte": "Remplis le formulaire de candidature en ligne et soumets tes photos.",
+    "etape2Titre": "Sélection",
+    "etape2Texte": "Notre jury sélectionne les candidates pour les présélections régionales.",
+    "etape3Titre": "Grande Finale",
+    "etape3Texte": "Les finalistes s'affrontent lors d'une soirée de gala inoubliable à Yaoundé.",
+    "btnCandidater": "Déposer ma candidature"
+  },
+  "galerie": {
+    "label": "Galerie",
+    "titre": "Elles brillent, elles inspirent",
+    "btnVoir": "Voir toute la galerie"
+  },
+  "tickets": {
+    "label": "Billetterie",
+    "titre": "Rejoins-nous pour la grande finale",
+    "desc": "Paiement disponible par carte bancaire, PayPal, Orange Money & MTN Mobile Money.",
+    "btnVoir": "Voir les tickets"
+  },
+  "footer": {
+    "slogan": "La beauté sans frontières, la fierté d'une nation.",
+    "navigation": "Navigation",
+    "contact": "Contact",
+    "email": "contact@missrondecameroun.cm",
+    "droits": "© 2025 Miss Ronde & Belle Cameroun. Tous droits réservés."
+  }
+}
