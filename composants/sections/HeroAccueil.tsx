@@ -75,12 +75,12 @@ export default function HeroAccueil({ locale }: { locale: string }) {
           </div>
           <div className="flex flex-wrap gap-3 mb-6">
             <Link href={'/' + locale + '/candidatures'} className="bg-[#C9A84C] hover:bg-[#E8C97A] text-black text-[11px] font-bold tracking-[0.2em] uppercase px-8 py-4 transition-all duration-300">{t('btnCandidater')}</Link>
-            <Link href={'/' + locale + '/billetterie'} className="border border-white/30 hover:border-[#C9A84C] text-white hover:text-[#C9A84C] text-[11px] font-medium tracking-[0.2em] uppercase px-8 py-4 transition-all duration-300">{t('btnTickets')}</Link>
+            <Link href={'/' + locale + '/billetterie'} className="border-2 border-white text-white hover:text-[#C9A84C] text-[11px] font-medium tracking-[0.2em] uppercase px-8 py-4 transition-all duration-300">{t('btnTickets')}</Link>
             <Link href={'/' + locale + '/contact?motif=partenaire'} className="border border-[#C9A84C]/40 hover:border-[#C9A84C] text-[#C9A84C]/70 hover:text-[#C9A84C] text-[11px] font-medium tracking-[0.2em] uppercase px-8 py-4 transition-all duration-300">{t('btnPartenaire')}</Link>
           </div>
           <div className="flex flex-wrap gap-2">
             {['partenaire','parrain','investir','donation','consultation'].map((key) => (
-              <Link key={key} href={'/' + locale + '/contact?motif=' + key} className="text-[10px] font-medium tracking-[0.15em] uppercase text-white/40 hover:text-[#C9A84C] border border-white/10 hover:border-[#C9A84C]/40 px-4 py-2 transition-all duration-300">
+              <Link key={key} href={'/' + locale + '/contact?motif=' + key} className="text-[10px] font-medium tracking-[0.15em] uppercase text-white border border-white/40 hover:border-[#C9A84C]/40 px-4 py-2 transition-all duration-300">
                 {ta(key)}
               </Link>
             ))}
