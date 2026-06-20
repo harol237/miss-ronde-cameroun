@@ -3,41 +3,46 @@
     "accueil": "Accueil",
     "candidatures": "Candidatures",
     "galerie": "Galerie",
-    "actualites": "Actualités",
-    "editions": "Éditions",
+    "actualites": "Actualites",
+    "editions": "Editions",
     "billetterie": "Billetterie",
     "contact": "Contact",
-    "aPropos": "À propos"
+    "aPropos": "A propos"
   },
   "hero": {
-    "edition": "Édition 2025",
-    "titre": "Miss Ronde & Belle Cameroun",
-    "slogan": "Je suis Rondement Belle et je m'assume…",
-    "btnCandidater": "Candidater",
-    "btnTickets": "Acheter un ticket"
+    "edition": "Edition 2026",
+    "titre": "Miss Ronde Cameroun",
+    "theme": "Beaute, Dignite et Autonomie : La Femme Ronde au coeur du Developpement",
+    "devise": "Elegance - Confiance - Inspiration",
+    "slogan": "Je suis Rondement Belle et je m assume",
+    "btnCandidater": "Candidature 2026",
+    "btnTickets": "Acheter un ticket",
+    "btnPartenaire": "Devenir partenaire",
+    "dateFinale": "Grande Finale : 29 decembre 2026",
+    "dateDemiFinale": "Demi-finale : Novembre 2026"
   },
   "apropos": {
-    "label": "À propos",
-    "titre": "Célébrer la beauté dans toute sa splendeur",
-    "texte1": "Miss Ronde & Belle Cameroun est le premier concours national qui célèbre la femme camerounaise dans toute sa diversité et sa magnificence. Beauté, grâce, intelligence — aucun critère de taille ne définit ici la femme qui mérite d'être couronnée.",
-    "texte2": "Un événement qui porte haut les couleurs du Cameroun et redéfinit les standards de beauté africaine.",
+    "label": "A propos",
+    "titre": "La Femme Ronde au coeur du Developpement",
+    "texte1": "Miss Ronde Cameroun est le premier concours national dedie a la celebration de la femme ronde camerounaise dans toute sa beaute, sa dignite et son autonomie.",
+    "texte2": "Sous le Haut patronage du Ministere des Arts et de la Culture, avec le soutien du Ministere du Tourisme et du Ministere de la Communication. Organise par l Association Femme Ronde Cameroun.",
     "stat1Nombre": "237",
-    "stat1Label": "Tribus, une beauté",
+    "stat1Label": "Tribus, une beaute",
     "stat2Nombre": "10",
-    "stat2Label": "Régions représentées",
+    "stat2Label": "Regions representees",
     "stat3Nombre": "1",
-    "stat3Label": "Couronne à gagner"
+    "stat3Label": "Couronne a gagner"
   },
   "participer": {
     "label": "Participer",
-    "titre": "Comment rejoindre l'aventure ?",
+    "titre": "Comment rejoindre l aventure ?",
     "etape1Titre": "Candidater",
-    "etape1Texte": "Remplis le formulaire de candidature en ligne et soumets tes photos.",
-    "etape2Titre": "Sélection",
-    "etape2Texte": "Notre jury sélectionne les candidates pour les présélections régionales.",
+    "etape1Texte": "Remplis le formulaire de candidature en ligne et soumets tes informations.",
+    "etape2Titre": "Selection",
+    "etape2Texte": "Notre jury selectionne les candidates pour les preselections regionales.",
     "etape3Titre": "Grande Finale",
-    "etape3Texte": "Les finalistes s'affrontent lors d'une soirée de gala inoubliable à Yaoundé.",
-    "btnCandidater": "Déposer ma candidature"
+    "etape3Texte": "Les finalistes s affrontent lors d une soiree de gala le 29 decembre 2026 a Yaounde.",
+    "btnCandidater": "Deposer ma candidature"
   },
   "galerie": {
     "label": "Galerie",
@@ -46,15 +51,23 @@
   },
   "tickets": {
     "label": "Billetterie",
-    "titre": "Rejoins-nous pour la grande finale",
-    "desc": "Paiement disponible par carte bancaire, PayPal, Orange Money & MTN Mobile Money.",
+    "titre": "Rejoins-nous pour la Grande Finale",
+    "desc": "Paiement disponible par carte bancaire, PayPal, Orange Money et MTN Mobile Money.",
     "btnVoir": "Voir les tickets"
   },
+  "actions": {
+    "partenaire": "Devenir partenaire",
+    "parrain": "Devenir parrain",
+    "investir": "Investir dans le projet",
+    "donation": "Faire un don",
+    "partenariat": "Proposer un partenariat",
+    "consultation": "Consultation privee"
+  },
   "footer": {
-    "slogan": "La beauté sans frontières, la fierté d'une nation.",
+    "slogan": "Elegance - Confiance - Inspiration",
     "navigation": "Navigation",
     "contact": "Contact",
-    "email": "contact@missrondecameroun.cm",
-    "droits": "© 2025 Miss Ronde & Belle Cameroun. Tous droits réservés."
+    "email": "missrondecameroun@gmail.com",
+    "droits": "2026 Miss Ronde Cameroun. Tous droits reserves."
   }
 }

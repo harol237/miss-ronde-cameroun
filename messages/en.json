@@ -10,17 +10,22 @@
     "aPropos": "About"
   },
   "hero": {
-    "edition": "2025 Edition",
-    "titre": "Miss Ronde & Belle Cameroun",
-    "slogan": "I am Roundly Beautiful and I own it…",
-    "btnCandidater": "Apply",
-    "btnTickets": "Buy a ticket"
+    "edition": "2026 Edition",
+    "titre": "Miss Ronde Cameroun",
+    "theme": "Beauty, Dignity and Autonomy: The Full-Figured Woman at the Heart of Development",
+    "devise": "Elegance - Confidence - Inspiration",
+    "slogan": "I am Roundly Beautiful and I own it",
+    "btnCandidater": "Apply 2026",
+    "btnTickets": "Buy a ticket",
+    "btnPartenaire": "Become a partner",
+    "dateFinale": "Grand Finale: December 29, 2026",
+    "dateDemiFinale": "Semi-final: November 2026"
   },
   "apropos": {
     "label": "About",
-    "titre": "Celebrating beauty in all its splendor",
-    "texte1": "Miss Ronde & Belle Cameroun is the first national pageant celebrating Cameroonian women in all their diversity and magnificence. Beauty, grace, intelligence — no size criteria defines the woman worthy of being crowned here.",
-    "texte2": "An event that proudly carries the colors of Cameroon and redefines African beauty standards.",
+    "titre": "The Full-Figured Woman at the Heart of Development",
+    "texte1": "Miss Ronde Cameroun is the first national pageant dedicated to celebrating the full-figured Cameroonian woman in all her beauty, dignity and autonomy.",
+    "texte2": "Under the High Patronage of the Ministry of Arts and Culture, with the support of the Ministry of Tourism and the Ministry of Communication. Organized by the Association Femme Ronde Cameroun.",
     "stat1Nombre": "237",
     "stat1Label": "Tribes, one beauty",
     "stat2Nombre": "10",
@@ -32,11 +37,11 @@
     "label": "Participate",
     "titre": "How to join the adventure?",
     "etape1Titre": "Apply",
-    "etape1Texte": "Fill out the online application form and submit your photos.",
+    "etape1Texte": "Fill out the online application form and submit your information.",
     "etape2Titre": "Selection",
     "etape2Texte": "Our jury selects candidates for regional pre-selections.",
     "etape3Titre": "Grand Finale",
-    "etape3Texte": "Finalists compete at an unforgettable gala evening in Yaoundé.",
+    "etape3Texte": "Finalists compete at an unforgettable gala evening on December 29, 2026 in Yaounde.",
     "btnCandidater": "Submit my application"
   },
   "galerie": {
@@ -46,15 +51,23 @@
   },
   "tickets": {
     "label": "Tickets",
-    "titre": "Join us for the grand finale",
-    "desc": "Payment available by credit card, PayPal, Orange Money & MTN Mobile Money.",
+    "titre": "Join us for the Grand Finale",
+    "desc": "Payment available by credit card, PayPal, Orange Money and MTN Mobile Money.",
     "btnVoir": "View tickets"
   },
+  "actions": {
+    "partenaire": "Become a partner",
+    "parrain": "Become a sponsor",
+    "investir": "Invest in the project",
+    "donation": "Make a donation",
+    "partenariat": "Propose a partnership",
+    "consultation": "Private consultation"
+  },
   "footer": {
-    "slogan": "Beauty without borders, the pride of a nation.",
+    "slogan": "Elegance - Confidence - Inspiration",
     "navigation": "Navigation",
     "contact": "Contact",
-    "email": "contact@missrondecameroun.cm",
-    "droits": "© 2025 Miss Ronde & Belle Cameroun. All rights reserved."
+    "email": "missrondecameroun@gmail.com",
+    "droits": "2026 Miss Ronde Cameroun. All rights reserved."
   }
 }
