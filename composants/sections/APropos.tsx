@@ -55,7 +55,7 @@ function StatAnime({ nombre, label }: { nombre: string; label: string }) {
       <span className="font-display text-6xl font-bold text-[#C9A84C] leading-none group-hover:scale-110 transition-transform duration-300">
         {compte}
       </span>
-      <span className="text-[10px] font-medium tracking-[0.2em] uppercase text-[#6B6358] mt-2">
+      <span className="text-[10px] font-medium tracking-[0.2em] uppercase text-[#4A4438] mt-2">
         {label}
       </span>
     </div>
@@ -101,10 +101,10 @@ export default function APropos() {
               </h2>
 
               <div className="space-y-4">
-                <p className="text-[#6B6358] leading-relaxed text-[15px]">
+                <p className="text-[#4A4438] leading-relaxed text-[15px]">
                   {t('texte1')}
                 </p>
-                <p className="text-[#6B6358] leading-relaxed text-[15px]">
+                <p className="text-[#4A4438] leading-relaxed text-[15px]">
                   {t('texte2')}
                 </p>
               </div>

@@ -46,7 +46,7 @@ export default function BanniereTickets({ locale }: { locale: string }) {
           {t('titre')}
         </h2>
 
-        <p className="text-[14px] text-white/40 leading-relaxed mb-12 max-w-lg mx-auto">
+        <p className="text-[14px] text-white/80 leading-relaxed mb-12 max-w-lg mx-auto">
           {t('desc')}
         </p>
 
@@ -55,7 +55,7 @@ export default function BanniereTickets({ locale }: { locale: string }) {
           {['Carte bancaire', 'PayPal', 'Orange Money', 'MTN Mobile Money'].map((moyen) => (
             <div key={moyen} className="flex items-center gap-2 px-4 py-2 border border-white/10 rounded-sm">
               <div className="w-2 h-2 rounded-full bg-[#C9A84C]" />
-              <span className="text-[11px] tracking-[0.1em] text-white/40">{moyen}</span>
+              <span className="text-[11px] tracking-[0.1em] text-white/80">{moyen}</span>
             </div>
           ))}
         </div>

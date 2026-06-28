@@ -104,13 +104,13 @@ export default function HeroAccueil({ locale }: { locale: string }) {
           <div className="inline-flex items-center gap-3 border-l-2 border-[#C9A84C] pl-4 mb-8">
             <div>
               <p className="text-[#C9A84C] font-display text-2xl md:text-3xl font-bold leading-none">1 Million FCFA</p>
-              <p className="text-white/60 text-xs mt-1">+ cadeaux, opportunités et formations</p>
+              <p className="text-white/85 text-xs mt-1">+ cadeaux, opportunités et formations</p>
             </div>
           </div>
 
           {/* Compte à rebours */}
           <div className="mb-8">
-            <p className="text-white/50 text-[10px] tracking-[0.25em] uppercase mb-3">
+            <p className="text-white/85 text-[10px] tracking-[0.25em] uppercase mb-3">
               Grande Finale · 29 Décembre 2026
             </p>
             <CompteARebours />
@@ -132,13 +132,13 @@ export default function HeroAccueil({ locale }: { locale: string }) {
               {ta('partenaire')}
             </Link>
             {['parrain', 'investir', 'donation', 'consultation'].map((key) => (
-              <Link key={key} href={'/' + locale + '/contact?motif=' + key} className="text-[10px] font-medium tracking-[0.1em] uppercase text-white/60 border border-white/15 hover:border-white/40 hover:text-white px-4 py-2 transition-all duration-300">
+              <Link key={key} href={'/' + locale + '/contact?motif=' + key} className="text-[10px] font-medium tracking-[0.1em] uppercase text-white/85 border border-white/15 hover:border-white/40 hover:text-white px-4 py-2 transition-all duration-300">
                 {ta(key)}
               </Link>
             ))}
           </div>
 
-          <p className="text-white/40 text-[11px] tracking-wide">
+          <p className="text-white/80 text-[11px] tracking-wide">
             Pour les femmes rondes, fières et ambitieuses · 18 à 35 ans
           </p>
         </div>

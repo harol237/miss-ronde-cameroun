@@ -61,7 +61,7 @@ export default function Navbar({ locale }: { locale: string }) {
               <Link
                 key={l}
                 href={'/' + l}
-                className={`text-[10px] font-medium tracking-[0.1em] uppercase px-2 py-1 rounded transition-all duration-200 ${locale === l ? 'text-[#C9A84C] border border-[#C9A84C]/50' : 'text-white/60 hover:text-white'}`}
+                className={`text-[10px] font-medium tracking-[0.1em] uppercase px-2 py-1 rounded transition-all duration-200 ${locale === l ? 'text-[#C9A84C] border border-[#C9A84C]/50' : 'text-white/85 hover:text-white'}`}
               >
                 {l}
               </Link>
@@ -100,7 +100,7 @@ export default function Navbar({ locale }: { locale: string }) {
           ))}
           <div className="flex gap-2 pt-2">
             {['fr', 'en', 'es'].map((l) => (
-              <Link key={l} href={'/' + l} className={`text-[10px] font-medium uppercase px-3 py-1.5 border transition-all ${locale === l ? 'text-[#C9A84C] border-[#C9A84C]/50' : 'text-white/60 border-white/10'}`}>{l}</Link>
+              <Link key={l} href={'/' + l} className={`text-[10px] font-medium uppercase px-3 py-1.5 border transition-all ${locale === l ? 'text-[#C9A84C] border-[#C9A84C]/50' : 'text-white/85 border-white/10'}`}>{l}</Link>
             ))}
           </div>
           <Link href={'/' + locale + '/billetterie'} onClick={() => setMenuOuvert(false)} className="bg-[#C9A84C] text-black text-[11px] font-bold tracking-[0.15em] uppercase px-5 py-3 text-center mt-2">

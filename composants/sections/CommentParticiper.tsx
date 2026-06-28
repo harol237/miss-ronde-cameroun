@@ -59,7 +59,7 @@ export default function CommentParticiper({ locale }: { locale: string }) {
                 <h3 className="font-display text-xl font-normal text-[#1A1714] mb-3">
                   {etape.titre}
                 </h3>
-                <p className="text-[14px] text-[#6B6358] leading-relaxed">
+                <p className="text-[14px] text-[#4A4438] leading-relaxed">
                   {etape.texte}
                 </p>
               </div>

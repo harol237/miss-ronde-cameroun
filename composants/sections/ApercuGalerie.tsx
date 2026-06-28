@@ -65,7 +65,7 @@ export default function ApercuGalerie({ locale }: { locale: string }) {
                   <span className="font-display text-5xl font-bold text-[#C9A84C]/40 group-hover:text-[#C9A84C]/70 transition-colors duration-500">
                     {edition.annee}
                   </span>
-                  <span className="text-[10px] tracking-[0.3em] uppercase text-[#6B6358] mt-2">
+                  <span className="text-[10px] tracking-[0.3em] uppercase text-[#4A4438] mt-2">
                     Édition
                   </span>
                   <div className="w-16 h-px bg-[#C9A84C]/50 mt-4" />
