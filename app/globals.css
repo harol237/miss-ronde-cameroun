@@ -1,5 +1,8 @@
 @import "tailwindcss";
-@source "../composants";
+@source "../composants/formulaires";
+@source "../composants/mise-en-page";
+@source "../composants/sections";
+@source "../composants/ui";
 @source "../app";
 
 :root {
