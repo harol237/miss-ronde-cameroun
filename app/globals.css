@@ -160,3 +160,260 @@ body {
     padding-right: 20px;
   }
 }
+
+/* CORRECTIONS GLOBALES TAILLE TEXTE */
+.champ-input {
+  font-size: 16px !important;
+  padding: 18px 24px !important;
+  margin-bottom: 4px;
+}
+
+.champ-textarea {
+  font-size: 16px !important;
+  padding: 18px 24px !important;
+}
+
+.label-champ {
+  font-size: 12px !important;
+  letter-spacing: 0.2em !important;
+  margin-bottom: 12px !important;
+  color: #d4d4d4 !important;
+}
+
+.grille-2 {
+  gap: 40px !important;
+  row-gap: 36px !important;
+}
+
+.carte-sombre {
+  padding: 60px !important;
+}
+
+.conteneur {
+  padding-left: 60px !important;
+  padding-right: 60px !important;
+}
+
+/* AGRANDISSEMENT GLOBAL */
+body {
+  font-size: 16px !important;
+}
+
+.champ-input {
+  font-size: 17px !important;
+  padding: 20px 28px !important;
+}
+
+.champ-textarea {
+  font-size: 17px !important;
+  padding: 20px 28px !important;
+}
+
+.label-champ {
+  font-size: 13px !important;
+  margin-bottom: 14px !important;
+}
+
+.grille-2 {
+  gap: 48px !important;
+  row-gap: 44px !important;
+}
+
+.carte-sombre {
+  padding: 72px !important;
+}
+
+.conteneur {
+  padding-left: 80px !important;
+  padding-right: 80px !important;
+}
+
+/* PAGE ACCUEIL - agrandissement sections */
+.section-padding { padding: 100px 0 !important; }
+.section-padding-lg { padding: 140px 0 !important; }
+.conteneur-large {
+  padding-left: 80px !important;
+  padding-right: 80px !important;
+}
+
+@media (max-width: 768px) {
+  .conteneur, .conteneur-large {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+  .carte-sombre { padding: 32px !important; }
+}
+
+/* ===== SECTIONS PAGE ACCUEIL ===== */
+
+/* Conteneur universel */
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 80px;
+}
+
+/* Section À propos */
+.section-apropos {
+  padding: 100px 0;
+  background: #FAF8F3;
+}
+
+.apropos-grille {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.apropos-texte p {
+  color: #4A4438;
+  font-size: 16px;
+  line-height: 1.85;
+  margin-bottom: 16px;
+}
+
+.apropos-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-left: 40px;
+  border-left: 1px solid rgba(201,168,76,0.3);
+}
+
+.stat-numero {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 64px;
+  font-weight: 700;
+  color: #9A7A2E;
+  line-height: 1;
+  display: block;
+}
+
+.stat-label {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  color: #6B6358;
+  text-transform: uppercase;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Section Comment participer */
+.section-participer {
+  padding: 100px 0;
+  background: #fff;
+}
+
+.steps-grille {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 48px;
+}
+
+.step-carte {
+  padding: 40px 32px;
+  border: 1px solid rgba(201,168,76,0.2);
+  border-top: 3px solid #C9A84C;
+}
+
+.step-numero {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 80px;
+  font-weight: 700;
+  color: rgba(201,168,76,0.15);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.step-titre {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 12px;
+  color: #1A1714;
+}
+
+.step-texte {
+  font-size: 15px;
+  color: #6B6358;
+  line-height: 1.75;
+}
+
+/* Section Galerie */
+.section-galerie {
+  padding: 100px 0;
+  background: #F2EFE8;
+}
+
+.galerie-grille-editions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.galerie-grille-photos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+/* Section Tickets */
+.section-tickets {
+  padding: 120px 0;
+  background: #000;
+  text-align: center;
+}
+
+.tickets-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* Titres sections */
+.section-titre {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 32px;
+}
+
+.section-titre-blanc { color: #fff; }
+.section-titre-noir { color: #1A1714; }
+
+.section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: #C9A84C;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.ligne-or-sm {
+  width: 32px;
+  height: 1px;
+  background: #C9A84C;
+  display: inline-block;
+}
+
+@media (max-width: 900px) {
+  .wrapper { padding: 0 32px; }
+  .apropos-grille { grid-template-columns: 1fr; gap: 40px; }
+  .apropos-stats { border-left: none; padding-left: 0; border-top: 1px solid rgba(201,168,76,0.3); padding-top: 32px; flex-direction: row; flex-wrap: wrap; }
+  .steps-grille { grid-template-columns: 1fr; }
+  .galerie-grille-editions { grid-template-columns: 1fr; }
+  .galerie-grille-photos { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .wrapper { padding: 0 20px; }
+  .section-apropos, .section-participer, .section-galerie { padding: 60px 0; }
+  .section-tickets { padding: 80px 0; }
+}

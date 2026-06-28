@@ -24,18 +24,20 @@ function CompteARebours() {
   }, [])
 
   return (
-    <div className="flex gap-5 md:gap-7">
+    <div style={{display:'flex', gap:'32px', alignItems:'flex-end'}}>
       {[
         { v: temps.jours, l: 'Jours' },
         { v: temps.heures, l: 'Heures' },
         { v: temps.minutes, l: 'Min' },
         { v: temps.secondes, l: 'Sec' },
       ].map(({ v, l }) => (
-        <div key={l} className="flex flex-col items-center">
-          <span className="font-display text-3xl md:text-5xl font-bold text-white leading-none tabular-nums">
+        <div key={l} style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+          <span style={{fontFamily:'var(--font-display),Georgia,serif', fontSize:'64px', fontWeight:'700', color:'#fff', lineHeight:'1', fontVariantNumeric:'tabular-nums'}}>
             {String(v).padStart(2, '0')}
           </span>
-          <span className="text-[9px] tracking-[0.2em] uppercase text-[#C9A84C] mt-1 font-medium">{l}</span>
+          <span style={{fontSize:'10px', letterSpacing:'0.25em', textTransform:'uppercase', color:'#C9A84C', marginTop:'6px', fontWeight:'500'}}>
+            {l}
+          </span>
         </div>
       ))}
     </div>
@@ -53,92 +55,188 @@ export default function HeroAccueil({ locale }: { locale: string }) {
   }, [])
 
   return (
-    <section className="relative min-h-screen flex flex-col lg:flex-row overflow-hidden bg-black">
+    <section style={{
+      position:'relative',
+      minHeight:'100vh',
+      display:'flex',
+      flexDirection:'row',
+      overflow:'hidden',
+      background:'#000',
+    }}>
 
-      {/* COLONNE GAUCHE - Photo */}
-      <div className="relative w-full lg:w-[45%] h-[50vh] lg:h-screen">
+      {/* PHOTO GAUCHE */}
+      <div style={{
+        position:'relative',
+        width:'45%',
+        minHeight:'100vh',
+        flexShrink: 0,
+      }}>
         <Image
           src="/images/accueil.jpg"
           alt="Miss Ronde Cameroun 2026"
           fill
-          className="object-cover object-center"
+          style={{objectFit:'cover', objectPosition:'center top'}}
           priority
         />
-        {/* Dégradés de fusion avec le noir */}
-        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black to-transparent hidden lg:block" />
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent lg:hidden" />
-        {/* Cadre doré décoratif */}
-        <div className="absolute inset-6 border border-[#C9A84C]/20 pointer-events-none hidden lg:block" />
+        <div style={{
+          position:'absolute', inset:0,
+          background:'linear-gradient(to right, transparent 60%, #000 100%)'
+        }} />
+        <div style={{
+          position:'absolute', inset:0,
+          background:'linear-gradient(to top, #000 0%, transparent 30%)'
+        }} />
       </div>
 
-      {/* COLONNE DROITE - Texte */}
-      <div className="relative z-10 w-full lg:w-[55%] flex items-center px-8 lg:px-16 py-16 lg:py-0 bg-black">
-        <div className={`w-full transition-all duration-1000 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      {/* TEXTE DROITE */}
+      <div style={{
+        flex:1,
+        display:'flex',
+        alignItems:'center',
+        padding:'120px 80px 80px 60px',
+        background:'#000',
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(30px)',
+        transition: 'all 1s ease',
+      }}>
+        <div style={{width:'100%', maxWidth:'600px'}}>
 
           {/* Badge */}
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-px bg-[#C9A84C]" />
-            <span className="text-[10px] font-semibold tracking-[0.4em] uppercase text-[#C9A84C]">
+          <div style={{display:'flex', alignItems:'center', gap:'16px', marginBottom:'28px'}}>
+            <div style={{width:'32px', height:'1px', background:'#C9A84C'}} />
+            <span style={{fontSize:'11px', fontWeight:'600', letterSpacing:'0.4em', textTransform:'uppercase', color:'#C9A84C'}}>
               Édition 2026 · 11ème édition
             </span>
           </div>
 
           {/* Titre */}
-          <h1 className="font-display font-normal text-white leading-none tracking-tight mb-4" style={{ fontSize: 'clamp(48px, 6vw, 84px)' }}>
-            Miss Ronde
-            <br />
-            Cameroun
+          <h1 style={{
+            fontFamily:'var(--font-display),Georgia,serif',
+            fontSize:'clamp(64px, 8vw, 110px)',
+            fontWeight:'400',
+            color:'#fff',
+            lineHeight:'0.95',
+            letterSpacing:'-0.02em',
+            marginBottom:'20px',
+          }}>
+            Miss Ronde<br />Cameroun
           </h1>
 
           {/* Devise */}
-          <p className="text-[#C9A84C] text-xs md:text-sm font-bold tracking-[0.35em] uppercase mb-4">
+          <p style={{
+            fontSize:'16px',
+            fontWeight:'700',
+            letterSpacing:'0.35em',
+            textTransform:'uppercase',
+            color:'#C9A84C',
+            marginBottom:'16px',
+          }}>
             Élégance · Confiance · Inspiration
           </p>
 
           {/* Thème */}
-          <p className="text-gray-100 text-sm md:text-base font-light italic mb-6 leading-relaxed max-w-lg">
+          <p style={{
+            fontFamily:'var(--font-accent),Georgia,serif',
+            fontSize:'20px',
+            fontStyle:'italic',
+            color:'rgba(255,255,255,0.65)',
+            marginBottom:'24px',
+            lineHeight:'1.6',
+            maxWidth:'500px',
+          }}>
             Beauté, Dignité et Autonomie : La Femme Ronde au cœur du Développement
           </p>
 
           {/* Prix */}
-          <div className="inline-flex items-center gap-3 border-l-2 border-[#C9A84C] pl-4 mb-8">
+          <div style={{
+            display:'inline-flex',
+            alignItems:'center',
+            gap:'16px',
+            borderLeft:'3px solid #C9A84C',
+            paddingLeft:'20px',
+            marginBottom:'32px',
+          }}>
             <div>
-              <p className="text-[#C9A84C] font-display text-2xl md:text-3xl font-bold leading-none">1 Million FCFA</p>
-              <p className="text-gray-100 text-xs mt-1">+ cadeaux, opportunités et formations</p>
+              <p style={{fontFamily:'var(--font-display),Georgia,serif', fontSize:'38px', fontWeight:'700', color:'#C9A84C', lineHeight:'1'}}>
+                1 Million FCFA
+              </p>
+              <p style={{fontSize:'13px', color:'rgba(255,255,255,0.5)', marginTop:'4px'}}>
+                + cadeaux, opportunités et formations
+              </p>
             </div>
           </div>
 
           {/* Compte à rebours */}
-          <div className="mb-8">
-            <p className="text-gray-100 text-[10px] tracking-[0.25em] uppercase mb-3">
+          <div style={{marginBottom:'36px'}}>
+            <p style={{fontSize:'10px', letterSpacing:'0.3em', textTransform:'uppercase', color:'rgba(255,255,255,0.4)', marginBottom:'16px'}}>
               Grande Finale · 29 Décembre 2026
             </p>
             <CompteARebours />
           </div>
 
           {/* Boutons principaux */}
-          <div className="flex flex-wrap gap-3 mb-5">
-            <Link href={'/' + locale + '/candidatures'} className="bg-[#C9A84C] hover:bg-[#E8C97A] text-black text-[11px] font-bold tracking-[0.2em] uppercase px-7 py-3.5 transition-all duration-300">
+          <div style={{display:'flex', flexWrap:'wrap', gap:'16px', marginBottom:'20px'}}>
+            <Link href={'/' + locale + '/candidatures'} style={{
+              background:'#C9A84C',
+              color:'#000',
+              fontSize:'12px',
+              fontWeight:'700',
+              letterSpacing:'0.2em',
+              textTransform:'uppercase',
+              padding:'18px 44px',
+              display:'inline-block',
+              transition:'background 0.3s',
+              textDecoration:'none',
+            }}
+              onMouseEnter={e => (e.currentTarget.style.background='#E8C97A')}
+              onMouseLeave={e => (e.currentTarget.style.background='#C9A84C')}
+            >
               Candidature 2026
             </Link>
-            <Link href={'/' + locale + '/billetterie'} className="border border-white/40 hover:border-white text-white text-[11px] font-semibold tracking-[0.2em] uppercase px-7 py-3.5 transition-all duration-300">
+            <Link href={'/' + locale + '/billetterie'} style={{
+              background:'transparent',
+              color:'#fff',
+              fontSize:'12px',
+              fontWeight:'600',
+              letterSpacing:'0.2em',
+              textTransform:'uppercase',
+              padding:'18px 44px',
+              display:'inline-block',
+              border:'1.5px solid rgba(255,255,255,0.4)',
+              transition:'all 0.3s',
+              textDecoration:'none',
+            }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor='#fff' }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor='rgba(255,255,255,0.4)' }}
+            >
               Acheter un ticket
             </Link>
           </div>
 
           {/* Boutons secondaires */}
-          <div className="flex flex-wrap gap-2 mb-6">
-            <Link href={'/' + locale + '/contact?motif=partenaire'} className="text-[10px] font-medium tracking-[0.1em] uppercase text-[#C9A84C] border border-[#C9A84C]/40 hover:bg-[#C9A84C]/10 px-4 py-2 transition-all duration-300">
-              {ta('partenaire')}
-            </Link>
-            {['parrain', 'investir', 'donation', 'consultation'].map((key) => (
-              <Link key={key} href={'/' + locale + '/contact?motif=' + key} className="text-[10px] font-medium tracking-[0.1em] uppercase text-gray-100 border border-white/15 hover:border-white/40 hover:text-white px-4 py-2 transition-all duration-300">
+          <div style={{display:'flex', flexWrap:'wrap', gap:'10px', marginBottom:'24px'}}>
+            {['partenaire','parrain','investir','donation','consultation'].map((key) => (
+              <Link key={key} href={'/' + locale + '/contact?motif=' + key} style={{
+                fontSize:'12px',
+                fontWeight:'500',
+                letterSpacing:'0.15em',
+                textTransform:'uppercase',
+                color:'rgba(255,255,255,0.6)',
+                border:'1px solid rgba(255,255,255,0.15)',
+                padding:'12px 22px',
+                display:'inline-block',
+                transition:'all 0.3s',
+                textDecoration:'none',
+              }}
+                onMouseEnter={e => { e.currentTarget.style.color='#C9A84C'; e.currentTarget.style.borderColor='rgba(201,168,76,0.5)' }}
+                onMouseLeave={e => { e.currentTarget.style.color='rgba(255,255,255,0.6)'; e.currentTarget.style.borderColor='rgba(255,255,255,0.15)' }}
+              >
                 {ta(key)}
               </Link>
             ))}
           </div>
 
-          <p className="text-gray-200 text-[11px] tracking-wide">
+          <p style={{fontSize:'12px', color:'rgba(255,255,255,0.35)', letterSpacing:'0.05em'}}>
             Pour les femmes rondes, fières et ambitieuses · 18 à 35 ans
           </p>
         </div>
