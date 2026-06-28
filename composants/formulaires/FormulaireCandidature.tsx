@@ -119,10 +119,10 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
   return (
     <main>
       <Navbar locale={locale} />
-      <div className="min-h-screen bg-black pt-28 pb-20">
+      <div className="min-h-screen bg-black pt-28 pb-20 px-4 md:px-8">
 
         {/* En-tête */}
-        <div className="max-w-4xl mx-auto px-6 text-center mb-12">
+        <div className="max-w-4xl mx-auto px-8 lg:px-16 text-center mb-12">
           <Image src="/images/logo.jpg" alt="Logo" width={90} height={90} className="rounded-full border-2 border-[#C9A84C] mx-auto mb-6 object-cover" />
           <div className="flex items-center justify-center gap-4 mb-5">
             <div className="w-12 h-px bg-[#C9A84C]" />
@@ -139,7 +139,7 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
         </div>
 
         {/* Indicateur d'étapes */}
-        <div className="max-w-4xl mx-auto px-6 mb-10">
+        <div className="max-w-4xl mx-auto px-8 lg:px-16 mb-10">
           <div className="flex items-center justify-between">
             {titresEtapes.map((titre, i) => (
               <div key={i} className="flex items-center flex-1">
@@ -156,7 +156,7 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
         </div>
 
         {/* Formulaire */}
-        <div className="max-w-4xl mx-auto px-6">
+        <div className="max-w-4xl mx-auto px-8 lg:px-16">
           <div className="bg-[#0D0D0D] border border-white/10 p-8 md:p-12">
 
             {/* Titre étape */}
