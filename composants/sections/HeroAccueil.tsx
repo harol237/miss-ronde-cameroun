@@ -96,7 +96,7 @@ export default function HeroAccueil({ locale }: { locale: string }) {
           </p>
 
           {/* Thème */}
-          <p className="text-white/70 text-sm md:text-base font-light italic mb-6 leading-relaxed max-w-lg">
+          <p className="text-white/85 text-sm md:text-base font-light italic mb-6 leading-relaxed max-w-lg">
             Beauté, Dignité et Autonomie : La Femme Ronde au cœur du Développement
           </p>
 
