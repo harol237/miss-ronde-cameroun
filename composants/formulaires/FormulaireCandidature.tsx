@@ -119,7 +119,7 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
   return (
     <main>
       <Navbar locale={locale} />
-      <div className="min-h-screen bg-black pt-28 pb-20 px-4 md:px-8">
+      <div className="min-h-screen bg-black pt-28 pb-20">
 
         {/* En-tête */}
         <div className="conteneur text-center mb-12">
