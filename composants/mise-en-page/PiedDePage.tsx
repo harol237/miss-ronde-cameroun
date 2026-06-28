@@ -47,7 +47,7 @@ export default function PiedDePage({ locale }: { locale: string }) {
                 Cameroun
               </span>
             </Link>
-            <p className="text-[13px] text-white/90 leading-relaxed mb-6 max-w-[220px]">
+            <p className="text-[13px] text-gray-100 leading-relaxed mb-6 max-w-[220px]">
               {t('slogan')}
             </p>
             <p className="font-accent text-base italic text-[#C9A84C]/60">
@@ -56,7 +56,7 @@ export default function PiedDePage({ locale }: { locale: string }) {
             <div className="flex gap-3 mt-6">
               {reseaux.map((r) => (
                 <a key={r.nom} href={r.href} target="_blank" rel="noopener noreferrer" aria-label={r.nom}
-                  className="w-9 h-9 border border-[#C9A84C]/25 flex items-center justify-center text-[11px] font-medium text-white/90 hover:text-[#C9A84C] hover:border-[#C9A84C] transition-all duration-300">
+                  className="w-9 h-9 border border-[#C9A84C]/25 flex items-center justify-center text-[11px] font-medium text-gray-100 hover:text-[#C9A84C] hover:border-[#C9A84C] transition-all duration-300">
                   {r.sigle}
                 </a>
               ))}
@@ -70,7 +70,7 @@ export default function PiedDePage({ locale }: { locale: string }) {
               {liens.map((lien) => (
                 <li key={lien.href}>
                   <Link href={'/' + locale + lien.href}
-                    className="text-[13px] text-white/90 hover:text-[#E8C97A] transition-colors duration-200">
+                    className="text-[13px] text-gray-100 hover:text-[#E8C97A] transition-colors duration-200">
                     {lien.label}
                   </Link>
                 </li>
@@ -83,7 +83,7 @@ export default function PiedDePage({ locale }: { locale: string }) {
               {legal.map((l) => (
                 <li key={l.href}>
                   <Link href={'/' + locale + l.href}
-                    className="text-[13px] text-white/90 hover:text-[#E8C97A] transition-colors duration-200">
+                    className="text-[13px] text-gray-100 hover:text-[#E8C97A] transition-colors duration-200">
                     {l.label}
                   </Link>
                 </li>
@@ -95,9 +95,9 @@ export default function PiedDePage({ locale }: { locale: string }) {
               {t('contact')}
             </h4>
             <ul className="space-y-4">
-              <li><a href="mailto:missrondecameroun@gmail.com" className="text-[13px] text-white/90 hover:text-[#E8C97A] transition-colors duration-200 block">missrondecameroun@gmail.com</a></li>
-              <li><a href="tel:+237675238097" className="text-[13px] text-white/90 hover:text-[#E8C97A] transition-colors duration-200 block">+237 6 75 23 80 97</a></li>
-              <li className="text-[13px] text-white/85">Yaounde, Cameroun</li>
+              <li><a href="mailto:missrondecameroun@gmail.com" className="text-[13px] text-gray-100 hover:text-[#E8C97A] transition-colors duration-200 block">missrondecameroun@gmail.com</a></li>
+              <li><a href="tel:+237675238097" className="text-[13px] text-gray-100 hover:text-[#E8C97A] transition-colors duration-200 block">+237 6 75 23 80 97</a></li>
+              <li className="text-[13px] text-gray-100">Yaounde, Cameroun</li>
             </ul>
             <Link href={'/' + locale + '/candidatures'}
               className="inline-block mt-8 bg-[#C9A84C]/10 hover:bg-[#C9A84C] border border-[#C9A84C]/30 hover:border-[#C9A84C] text-[#C9A84C] hover:text-black text-[10px] font-bold tracking-[0.2em] uppercase px-6 py-3 transition-all duration-300">
@@ -108,8 +108,8 @@ export default function PiedDePage({ locale }: { locale: string }) {
       </div>
       <div className="border-t border-gray-700">
         <div className="max-w-7xl mx-auto px-6 lg:px-16 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-[11px] text-white/90 tracking-wide">{t('droits')}</p>
-          <p className="text-[11px] text-white/85 tracking-wide">missrondecameroun.cm</p>
+          <p className="text-[11px] text-gray-100 tracking-wide">{t('droits')}</p>
+          <p className="text-[11px] text-gray-100 tracking-wide">missrondecameroun.cm</p>
         </div>
       </div>
     </footer>

@@ -10,11 +10,6 @@
   --white: #FFFFFF;
   --cream: #FAF8F3;
   --gray-light: #F2EFE8;
-  --text: #1A1714;
-  --text-muted: #6B6358;
-  --font-display: var(--font-display);
-  --font-body: var(--font-body);
-  --font-accent: var(--font-accent);
   --nav-height: 72px;
 }
 
@@ -30,12 +25,18 @@ html {
 
 body {
   font-family: var(--font-body), sans-serif;
-  color: var(--text);
-  background: var(--white);
   -webkit-font-smoothing: antialiased;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+.font-accent {
+  font-family: var(--font-accent), Georgia, serif;
+}
+
+@keyframes defilement {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
