@@ -129,7 +129,7 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
             <span className="text-[11px] font-semibold tracking-[0.4em] uppercase text-[#C9A84C]">11ème Édition 2026</span>
             <div className="w-12 h-px bg-[#C9A84C]" />
           </div>
-          <h1 className="font-display text-5xl md:text-6xl text-white mb-4">Formulaire de Candidature</h1>
+          <h1 className="font-display titre-formulaire text-white mb-sm">Formulaire de Candidature</h1>
           <p className="text-gray-300 text-base leading-relaxed conteneur mb-3">
             La prise en compte effective de l'inscription implique que le présent formulaire et le règlement de l'élection soient signés sur chaque page, accompagnés de la photocopie de la pièce d'identité et d'un justificatif de domicile.
           </p>
@@ -161,7 +161,7 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
 
             {/* Titre étape */}
             <div className="mb-10">
-              <h2 className="font-display text-3xl text-white mb-2">{titresEtapes[etape - 1]}</h2>
+              <h2 className="font-display titre-section text-white mb-sm">{titresEtapes[etape - 1]}</h2>
               <div className="w-12 h-px bg-[#C9A84C]" />
             </div>
 
@@ -180,7 +180,7 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
                     { label: 'Facebook / Instagram / TikTok', name: 'reseaux', required: true },
                   ].map((champ) => (
                     <div key={champ.name}>
-                      <label className="block text-gray-200 text-[11px] tracking-[0.25em] uppercase mb-3">
+                      <label className="label-champ">
                         {champ.label} {champ.required && <span className="text-[#C9A84C]">*</span>}
                       </label>
                       <input
@@ -199,7 +199,7 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
                     { label: 'Avez-vous des enfants ?', name: 'enfants', required: true },
                   ].map((champ) => (
                     <div key={champ.name}>
-                      <label className="block text-gray-200 text-[11px] tracking-[0.25em] uppercase mb-4">
+                      <label className="label-champ mb-md">
                         {champ.label} <span className="text-[#C9A84C]">*</span>
                       </label>
                       <div className="flex gap-8">
@@ -225,10 +225,10 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
                   { label: 'Langues étrangères parlées et niveau', name: 'langues', required: true },
                 ].map((champ) => (
                   <div key={champ.name}>
-                    <label className="block text-gray-200 text-[11px] tracking-[0.25em] uppercase mb-3">
+                    <label className="label-champ">
                       {champ.label} <span className="text-[#C9A84C]">*</span>
                     </label>
-                    <input type="text" name={champ.name} value={(form as any)[champ.name]} onChange={maj} className="w-full bg-black border border-white/15 focus:border-[#C9A84C] text-white text-base px-5 py-4 outline-none transition-colors duration-200" />
+                    <input type="text" name={champ.name} value={(form as any)[champ.name]} onChange={maj} className="champ-input" />
                   </div>
                 ))}
                 {[
@@ -237,8 +237,8 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
                   { label: 'Votre ambition dans la vie', name: 'ambition' },
                 ].map((champ) => (
                   <div key={champ.name}>
-                    <label className="block text-gray-200 text-[11px] tracking-[0.25em] uppercase mb-3">{champ.label}</label>
-                    <textarea name={champ.name} value={(form as any)[champ.name]} onChange={maj} rows={4} className="w-full bg-black border border-white/15 focus:border-[#C9A84C] text-white text-base px-5 py-4 outline-none transition-colors duration-200 resize-none" />
+                    <label className="label-champ">{champ.label}</label>
+                    <textarea name={champ.name} value={(form as any)[champ.name]} onChange={maj} rows={4} className="champ-textarea" />
                   </div>
                 ))}
               </div>
@@ -252,7 +252,7 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
                   { label: "Disposez-vous d'un passeport ?", name: 'passeport', required: true },
                 ].map((champ) => (
                   <div key={champ.name}>
-                    <label className="block text-gray-200 text-[11px] tracking-[0.25em] uppercase mb-4">
+                    <label className="label-champ mb-md">
                       {champ.label} {champ.required && <span className="text-[#C9A84C]">*</span>}
                     </label>
                     <div className="flex gap-8">
@@ -268,12 +268,12 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
                 {form.passeport === 'Oui' && (
                   <div className="grille-2 p-6 border border-[#C9A84C]/20 bg-[#C9A84C]/5">
                     <div>
-                      <label className="block text-gray-200 text-[11px] tracking-[0.25em] uppercase mb-3">Numéro de passeport <span className="text-[#C9A84C]">*</span></label>
-                      <input type="text" name="numeroPasport" value={form.numeroPasport} onChange={maj} className="w-full bg-black border border-white/15 focus:border-[#C9A84C] text-white text-base px-5 py-4 outline-none transition-colors duration-200" />
+                      <label className="label-champ">Numéro de passeport <span className="text-[#C9A84C]">*</span></label>
+                      <input type="text" name="numeroPasport" value={form.numeroPasport} onChange={maj} className="champ-input" />
                     </div>
                     <div>
-                      <label className="block text-gray-200 text-[11px] tracking-[0.25em] uppercase mb-3">Date d'expiration <span className="text-[#C9A84C]">*</span></label>
-                      <input type="date" name="expirationPasseport" value={form.expirationPasseport} onChange={maj} className="w-full bg-black border border-white/15 focus:border-[#C9A84C] text-white text-base px-5 py-4 outline-none transition-colors duration-200" />
+                      <label className="label-champ">Date d'expiration <span className="text-[#C9A84C]">*</span></label>
+                      <input type="date" name="expirationPasseport" value={form.expirationPasseport} onChange={maj} className="champ-input" />
                     </div>
                   </div>
                 )}
@@ -297,10 +297,10 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
                     { label: 'Couleur des cheveux', name: 'cheveux', required: true },
                   ].map((champ) => (
                     <div key={champ.name}>
-                      <label className="block text-gray-200 text-[11px] tracking-[0.25em] uppercase mb-3">
+                      <label className="label-champ">
                         {champ.label} {champ.required && <span className="text-[#C9A84C]">*</span>}
                       </label>
-                      <input type="text" name={champ.name} value={(form as any)[champ.name]} onChange={maj} className="w-full bg-black border border-white/15 focus:border-[#C9A84C] text-white text-base px-5 py-4 outline-none transition-colors duration-200" />
+                      <input type="text" name={champ.name} value={(form as any)[champ.name]} onChange={maj} className="champ-input" />
                     </div>
                   ))}
                 </div>
