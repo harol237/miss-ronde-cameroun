@@ -122,7 +122,7 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
       <div className="min-h-screen bg-black pt-28 pb-20 px-4 md:px-8">
 
         {/* En-tête */}
-        <div className="max-w-4xl mx-auto px-8 lg:px-16 text-center mb-12">
+        <div className="conteneur text-center mb-12">
           <Image src="/images/logo.jpg" alt="Logo" width={90} height={90} className="rounded-full border-2 border-[#C9A84C] mx-auto mb-6 object-cover" />
           <div className="flex items-center justify-center gap-4 mb-5">
             <div className="w-12 h-px bg-[#C9A84C]" />
@@ -130,7 +130,7 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
             <div className="w-12 h-px bg-[#C9A84C]" />
           </div>
           <h1 className="font-display text-5xl md:text-6xl text-white mb-4">Formulaire de Candidature</h1>
-          <p className="text-gray-300 text-base leading-relaxed max-w-2xl mx-auto mb-3">
+          <p className="text-gray-300 text-base leading-relaxed conteneur mb-3">
             La prise en compte effective de l'inscription implique que le présent formulaire et le règlement de l'élection soient signés sur chaque page, accompagnés de la photocopie de la pièce d'identité et d'un justificatif de domicile.
           </p>
           <a href="https://missrondecameroun.com/wp-content/uploads/2025/06/formulaire-dinscription_mrbc2019.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border border-[#C9A84C]/50 hover:border-[#C9A84C] text-[#C9A84C] text-[11px] font-semibold tracking-[0.2em] uppercase px-6 py-3 transition-all duration-300 mt-2">
@@ -139,7 +139,7 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
         </div>
 
         {/* Indicateur d'étapes */}
-        <div className="max-w-4xl mx-auto px-8 lg:px-16 mb-10">
+        <div className="conteneur mb-10">
           <div className="flex items-center justify-between">
             {titresEtapes.map((titre, i) => (
               <div key={i} className="flex items-center flex-1">
@@ -156,7 +156,7 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
         </div>
 
         {/* Formulaire */}
-        <div className="max-w-4xl mx-auto px-8 lg:px-16">
+        <div className="conteneur">
           <div className="bg-[#0D0D0D] border border-white/10 p-8 md:p-12">
 
             {/* Titre étape */}
@@ -168,7 +168,7 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
             {/* ÉTAPE 1 */}
             {etape === 1 && (
               <div className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grille-2">
                   {[
                     { label: 'Nom', name: 'nom', required: true },
                     { label: 'Prénoms', name: 'prenom', required: true },
@@ -193,7 +193,7 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
                     </div>
                   ))}
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4 border-t border-white/5">
+                <div className="grille-2 pt-4 border-t border-white/5">
                   {[
                     { label: 'Êtes-vous mariée ?', name: 'mariee', required: true },
                     { label: 'Avez-vous des enfants ?', name: 'enfants', required: true },
@@ -266,7 +266,7 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
                   </div>
                 ))}
                 {form.passeport === 'Oui' && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 border border-[#C9A84C]/20 bg-[#C9A84C]/5">
+                  <div className="grille-2 p-6 border border-[#C9A84C]/20 bg-[#C9A84C]/5">
                     <div>
                       <label className="block text-gray-200 text-[11px] tracking-[0.25em] uppercase mb-3">Numéro de passeport <span className="text-[#C9A84C]">*</span></label>
                       <input type="text" name="numeroPasport" value={form.numeroPasport} onChange={maj} className="w-full bg-black border border-white/15 focus:border-[#C9A84C] text-white text-base px-5 py-4 outline-none transition-colors duration-200" />
@@ -283,7 +283,7 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
             {/* ÉTAPE 4 */}
             {etape === 4 && (
               <div className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grille-2">
                   {[
                     { label: 'Taille sans talons (cm)', name: 'taille', required: true },
                     { label: 'Poids (kg)', name: 'poids', required: true },
