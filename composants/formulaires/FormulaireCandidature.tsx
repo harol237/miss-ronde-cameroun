@@ -1,60 +1,202 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import Navbar from '@/composants/mise-en-page/Navbar'
 import PiedDePage from '@/composants/mise-en-page/PiedDePage'
 
+// TODO : formulaire d'inscription et reglement officiels de l'edition 2026-2027
+// au format PDF. Le document precedemment lie datait de 2019 et a ete retire.
+
+const CHAMPS_VIDES = {
+  nom: '', prenom: '', age: '', nationalite: '',
+  email: '', telephone: '', adresse: '', reseaux: '',
+  mariee: '', enfants: '',
+  profession: '', diplome: '', langues: '',
+  reve: '', association: '', ambition: '',
+  voyage: '', passeport: '', numeroPasport: '', expirationPasseport: '',
+  taille: '', poids: '', buste: '', tourTaille: '', hanche: '', bassin: '',
+  pointure: '', confection: '', yeux: '', cheveux: '',
+}
+
+type Formulaire = typeof CHAMPS_VIDES
+type NomChamp = keyof Formulaire
+
+type Champ = {
+  nom: NomChamp
+  type?: 'text' | 'email' | 'number' | 'date' | 'textarea' | 'radio'
+  requis?: boolean
+  aide?: string
+  pleineLargeur?: boolean
+}
+
+/** Champs par etape : sert a la fois au rendu et a la validation. */
+const ETAPES: { cle: string; groupes: { titre?: string; champs: Champ[] }[] }[] = [
+  {
+    cle: '1',
+    groupes: [
+      {
+        champs: [
+          { nom: 'nom', requis: true },
+          { nom: 'prenom', requis: true },
+          { nom: 'age', type: 'number', requis: true, aide: 'age' },
+          { nom: 'nationalite', requis: true },
+          { nom: 'email', type: 'email', requis: true, aide: 'email' },
+          { nom: 'telephone', aide: 'telephone' },
+          { nom: 'adresse', requis: true },
+          { nom: 'reseaux', requis: true, aide: 'reseaux' },
+        ],
+      },
+      {
+        titre: 'sousSectionSituation',
+        champs: [
+          { nom: 'mariee', type: 'radio', requis: true },
+          { nom: 'enfants', type: 'radio', requis: true },
+        ],
+      },
+    ],
+  },
+  {
+    cle: '2',
+    groupes: [
+      {
+        champs: [
+          { nom: 'profession', requis: true, pleineLargeur: true },
+          { nom: 'diplome', requis: true, pleineLargeur: true },
+          { nom: 'langues', requis: true, pleineLargeur: true },
+          { nom: 'reve', type: 'textarea', pleineLargeur: true, aide: 'reve' },
+          { nom: 'association', type: 'textarea', pleineLargeur: true },
+          { nom: 'ambition', type: 'textarea', pleineLargeur: true },
+        ],
+      },
+    ],
+  },
+  {
+    cle: '3',
+    groupes: [
+      {
+        champs: [
+          { nom: 'voyage', type: 'radio' },
+          { nom: 'passeport', type: 'radio', requis: true },
+        ],
+      },
+    ],
+  },
+  {
+    cle: '4',
+    groupes: [
+      {
+        champs: [
+          { nom: 'taille', requis: true }, { nom: 'poids', requis: true },
+          { nom: 'buste', requis: true }, { nom: 'tourTaille', requis: true },
+          { nom: 'hanche', requis: true }, { nom: 'bassin', requis: true },
+          { nom: 'pointure', requis: true }, { nom: 'confection', requis: true },
+          { nom: 'yeux', requis: true }, { nom: 'cheveux', requis: true },
+        ],
+      },
+    ],
+  },
+]
+
+const TOTAL = ETAPES.length
+
+const CRITERES = ['c1','c2','c3','c4','c5','c6','c7','c8','c9','c10','c11','c12'] as const
+
 export default function PageCandidaturesClient({ locale }: { locale: string }) {
+  const t = useTranslations('candidature')
+  const tc = useTranslations('commun')
+  const te = useTranslations('eligibilite')
+
   const [etape, setEtape] = useState(1)
   const [envoi, setEnvoi] = useState<'idle' | 'envoi' | 'succes' | 'erreur'>('idle')
   const [numero, setNumero] = useState('')
+  const [form, setForm] = useState<Formulaire>(CHAMPS_VIDES)
   const [droitsImage, setDroitsImage] = useState(false)
   const [accepteReglement, setAccepteReglement] = useState(false)
-  const [erreurCase, setErreurCase] = useState('')
-  const [form, setForm] = useState({
-    nom: '', prenom: '', age: '', nationalite: '',
-    email: '', telephone: '', adresse: '', reseaux: '',
-    mariee: '', enfants: '',
-    profession: '', diplome: '', langues: '',
-    reve: '', association: '', ambition: '',
-    voyage: '', passeport: '', numeroPasport: '', expirationPasseport: '',
-    taille: '', poids: '', buste: '', tourTaille: '', hanche: '', bassin: '',
-    pointure: '', confection: '', yeux: '', cheveux: ''
-  })
+  const [erreurs, setErreurs] = useState<Partial<Record<NomChamp, string>>>({})
+  const [erreurGenerale, setErreurGenerale] = useState('')
 
-  const maj = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
+  const hautFormulaire = useRef<HTMLDivElement>(null)
+
+  // A chaque changement d'etape, on ramene la vue en haut du formulaire.
+  useEffect(() => {
+    hautFormulaire.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [etape])
+
+  const maj = (nom: NomChamp, valeur: string) => {
+    setForm((precedent) => ({ ...precedent, [nom]: valeur }))
+    setErreurs((precedent) => {
+      if (!precedent[nom]) return precedent
+      const copie = { ...precedent }
+      delete copie[nom]
+      return copie
+    })
+  }
+
+  /** Valide les champs de l'etape courante et renvoie true si tout est correct. */
+  const validerEtape = (numeroEtape: number) => {
+    const trouvees: Partial<Record<NomChamp, string>> = {}
+
+    for (const groupe of ETAPES[numeroEtape - 1].groupes) {
+      for (const champ of groupe.champs) {
+        const valeur = form[champ.nom].trim()
+        if (champ.requis && !valeur) {
+          trouvees[champ.nom] = t('erreurRequis')
+          continue
+        }
+        if (champ.nom === 'email' && valeur && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(valeur)) {
+          trouvees[champ.nom] = t('erreurEmail')
+        }
+        if (champ.nom === 'age' && valeur) {
+          const age = Number(valeur)
+          if (!Number.isFinite(age) || age < 18 || age > 40) trouvees[champ.nom] = t('erreurAge')
+        }
+      }
+    }
+
+    // Le passeport declare ouvre deux champs supplementaires obligatoires.
+    if (numeroEtape === 3 && form.passeport === 'Oui') {
+      if (!form.numeroPasport.trim()) trouvees.numeroPasport = t('erreurRequis')
+      if (!form.expirationPasseport.trim()) trouvees.expirationPasseport = t('erreurRequis')
+    }
+
+    setErreurs(trouvees)
+    const valide = Object.keys(trouvees).length === 0
+    setErreurGenerale(valide ? '' : t('erreurEtape'))
+    return valide
   }
 
   const etapeSuivante = () => {
-    if (etape === 4) {
-      if (!droitsImage || !accepteReglement) {
-        setErreurCase('Vous devez accepter les deux conditions pour finaliser votre inscription.')
-        return
-      }
-      setErreurCase('')
-    }
-    setEtape(etape + 1)
+    if (!validerEtape(etape)) return
+    setEtape((e) => Math.min(e + 1, TOTAL))
+  }
+
+  const etapePrecedente = () => {
+    setErreurGenerale('')
+    setEtape((e) => Math.max(e - 1, 1))
   }
 
   const soumettre = async () => {
+    if (!validerEtape(TOTAL)) return
     if (!droitsImage || !accepteReglement) {
-      setErreurCase('Vous devez accepter les deux conditions pour finaliser votre inscription.')
+      setErreurGenerale(t('erreurCases'))
       return
     }
+    setErreurGenerale('')
     setEnvoi('envoi')
     try {
-      const res = await fetch('/api/candidatures', {
+      const reponse = await fetch('/api/candidatures', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
+        body: JSON.stringify({ ...form, droitsImage, accepteReglement, langue: locale }),
       })
-      const data = await res.json()
-      if (data.success) {
-        setNumero(data.numero)
+      const donnees = await reponse.json()
+      if (donnees.success) {
+        setNumero(donnees.numero)
         setEnvoi('succes')
+        window.scrollTo({ top: 0, behavior: 'smooth' })
       } else {
         setEnvoi('erreur')
       }
@@ -63,51 +205,44 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
     }
   }
 
-  const titresEtapes = ['Identité & Contact', 'Parcours & Ambitions', 'Voyages & Passeport', 'Mensurations']
+  /* ---------------------------------------------------------------- succes */
 
   if (envoi === 'succes') {
     return (
       <main>
         <Navbar locale={locale} />
-        <div className="min-h-screen bg-black flex items-center justify-center px-6 pt-24 pb-16">
-          <div className="max-w-2xl w-full">
-            <div className="text-center mb-10">
-              <Image src="/images/logo.jpg" alt="Logo" width={100} height={100} className="rounded-full border-2 border-[#C9A84C] mx-auto mb-6 object-cover" />
-              <div className="w-16 h-px bg-[#C9A84C] mx-auto mb-6" />
-              <h1 className="font-display text-4xl md:text-5xl text-white mb-3">Félicitations !</h1>
-              <p className="text-gray-300 text-lg">Votre candidature a bien été reçue</p>
+        <div className="cand-page cand-page-succes">
+          <div className="cand-succes">
+            <div className="cand-succes-entete">
+              <Image src="/images/logo.png" alt="Miss Ronde Cameroun" width={104} height={104} className="cand-logo" />
+              <span className="ligne-or" style={{ margin: '0 auto 24px' }} />
+              <h1 className="font-display cand-succes-titre">{t('succesTitre')}</h1>
+              <p className="cand-succes-soustitre">{t('succesSousTitre')}</p>
             </div>
 
-            <div className="bg-[#C9A84C]/10 border border-[#C9A84C]/50 px-8 py-8 mb-8 text-center">
-              <p className="text-[#C9A84C] text-xs tracking-[0.4em] uppercase mb-3">Votre numéro de candidature</p>
-              <p className="font-display text-5xl text-white font-bold tracking-widest">{numero}</p>
+            <div className="cand-numero">
+              <p className="cand-numero-label">{t('succesNumero')}</p>
+              <p className="cand-numero-valeur">{numero}</p>
             </div>
 
-            <div className="bg-[#111] border border-white/10 p-8 mb-8">
-              <p className="text-[#C9A84C] text-xs tracking-[0.3em] uppercase mb-5">Prochaines étapes</p>
-              <div className="space-y-4">
-                {[
-                  'Imprimez et signez le formulaire officiel sur chaque page',
-                  'Joignez une photocopie de votre pièce d\'identité',
-                  'Joignez un justificatif de domicile',
-                  'Envoyez le dossier complet à missrondecameroun@gmail.com'
-                ].map((step, i) => (
-                  <div key={i} className="flex items-start gap-4">
-                    <span className="w-7 h-7 rounded-full bg-[#C9A84C]/20 border border-[#C9A84C]/40 flex items-center justify-center text-[#C9A84C] text-xs font-bold flex-shrink-0 mt-0.5">{i + 1}</span>
-                    <p className="text-gray-300 text-sm leading-relaxed">{step}</p>
-                  </div>
+            <div className="cand-suite">
+              <p className="cand-suite-titre">{t('succesEtapesTitre')}</p>
+              <ol className="cand-suite-liste">
+                {['succesEtape1', 'succesEtape2', 'succesEtape3', 'succesEtape4'].map((cle, i) => (
+                  <li key={cle}>
+                    <span className="cand-suite-numero">{i + 1}</span>
+                    <span>{t(cle)}</span>
+                  </li>
                 ))}
-              </div>
+              </ol>
             </div>
 
-            <p className="text-gray-400 text-sm text-center mb-8">
-              Un email de confirmation a été envoyé à <span className="text-[#C9A84C]">{form.email}</span>
+            <p className="cand-succes-email">
+              {t('succesEmail')} <span>{form.email}</span>
             </p>
 
-            <div className="text-center">
-              <Link href={'/' + locale} className="bg-[#C9A84C] hover:bg-[#E8C97A] text-black text-[11px] font-bold tracking-[0.2em] uppercase px-10 py-4 transition-all duration-300">
-                Retour à l'accueil
-              </Link>
+            <div style={{ textAlign: 'center' }}>
+              <Link href={'/' + locale} className="btn-or">{tc('retourAccueil')}</Link>
             </div>
           </div>
         </div>
@@ -116,267 +251,225 @@ export default function PageCandidaturesClient({ locale }: { locale: string }) {
     )
   }
 
+  /* -------------------------------------------------------------- rendu champ */
+
+  const rendreChamp = (champ: Champ) => {
+    const libelle = t(`champs.${champ.nom}`)
+    const erreur = erreurs[champ.nom]
+    const idAide = champ.aide ? `${champ.nom}-aide` : undefined
+    const idErreur = erreur ? `${champ.nom}-erreur` : undefined
+    const decrit = [idAide, idErreur].filter(Boolean).join(' ') || undefined
+
+    if (champ.type === 'radio') {
+      return (
+        <fieldset key={champ.nom} className="cand-champ cand-champ-large">
+          <legend className="label-champ">
+            {libelle} {champ.requis && <span className="cand-requis">*</span>}
+          </legend>
+          <div className="cand-radios">
+            {[tc('oui'), tc('non')].map((option) => (
+              <label key={option} className={`cand-radio ${form[champ.nom] === option ? 'cand-radio-actif' : ''}`}>
+                <input
+                  type="radio"
+                  name={champ.nom}
+                  value={option}
+                  checked={form[champ.nom] === option}
+                  onChange={(e) => maj(champ.nom, e.target.value)}
+                />
+                <span>{option}</span>
+              </label>
+            ))}
+          </div>
+          {erreur && <p className="cand-erreur" id={idErreur}>{erreur}</p>}
+        </fieldset>
+      )
+    }
+
+    return (
+      <div key={champ.nom} className={`cand-champ ${champ.pleineLargeur ? 'cand-champ-large' : ''}`}>
+        <label className="label-champ" htmlFor={champ.nom}>
+          {libelle} {champ.requis && <span className="cand-requis">*</span>}
+        </label>
+        {champ.type === 'textarea' ? (
+          <textarea
+            id={champ.nom}
+            name={champ.nom}
+            rows={4}
+            value={form[champ.nom]}
+            onChange={(e) => maj(champ.nom, e.target.value)}
+            className={`champ-textarea ${erreur ? 'champ-erreur' : ''}`}
+            aria-invalid={erreur ? true : undefined}
+            aria-describedby={decrit}
+          />
+        ) : (
+          <input
+            id={champ.nom}
+            name={champ.nom}
+            type={champ.type || 'text'}
+            inputMode={champ.type === 'number' ? 'numeric' : undefined}
+            value={form[champ.nom]}
+            onChange={(e) => maj(champ.nom, e.target.value)}
+            className={`champ-input ${erreur ? 'champ-erreur' : ''}`}
+            aria-invalid={erreur ? true : undefined}
+            aria-describedby={decrit}
+          />
+        )}
+        {champ.aide && !erreur && <p className="cand-aide" id={idAide}>{t(`aides.${champ.aide}`)}</p>}
+        {erreur && <p className="cand-erreur" id={idErreur}>{erreur}</p>}
+      </div>
+    )
+  }
+
+  /* ------------------------------------------------------------------ rendu */
+
+  const titresEtapes = [t('etape1'), t('etape2'), t('etape3'), t('etape4')]
+
   return (
     <main>
       <Navbar locale={locale} />
-      <div className="min-h-screen bg-black pt-28 pb-20">
+      <div className="cand-page">
 
-        {/* En-tête */}
-        <div className="conteneur text-center mb-12">
-          <Image src="/images/logo.jpg" alt="Logo" width={90} height={90} className="rounded-full border-2 border-[#C9A84C] mx-auto mb-6 object-cover" />
-          <div className="flex items-center justify-center gap-4 mb-5">
-            <div className="w-12 h-px bg-[#C9A84C]" />
-            <span className="text-[11px] font-semibold tracking-[0.4em] uppercase text-[#C9A84C]">11ème Édition 2026</span>
-            <div className="w-12 h-px bg-[#C9A84C]" />
+        <header className="cand-entete">
+          <Image src="/images/logo.png" alt="Miss Ronde Cameroun" width={92} height={92} className="cand-logo" />
+          <div className="cand-entete-badge">
+            <span className="ligne-or-sm" />
+            <span className="section-label">{t('edition')}</span>
+            <span className="ligne-or-sm" />
           </div>
-          <h1 className="font-display titre-formulaire text-white mb-sm">Formulaire de Candidature</h1>
-          <p className="text-gray-300 text-base leading-relaxed conteneur mb-3">
-            La prise en compte effective de l'inscription implique que le présent formulaire et le règlement de l'élection soient signés sur chaque page, accompagnés de la photocopie de la pièce d'identité et d'un justificatif de domicile.
-          </p>
-          <a href="https://missrondecameroun.com/wp-content/uploads/2025/06/formulaire-dinscription_mrbc2019.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border border-[#C9A84C]/50 hover:border-[#C9A84C] text-[#C9A84C] text-[11px] font-semibold tracking-[0.2em] uppercase px-6 py-3 transition-all duration-300 mt-2">
-            ↓ Télécharger le formulaire officiel PDF
-          </a>
+          <h1 className="font-display titre-formulaire cand-titre">{t('titre')}</h1>
+          <p className="cand-intro">{t('intro')}</p>
+          <p className="cand-conditions">{t('conditions')}</p>
+          <Link href={'/' + locale + '/legal/reglement-concours'} className="cand-lien-pdf">
+            {t('btnReglement')} →
+          </Link>
+        </header>
+
+        <div className="cand-corps">
+          <section className="cand-eligibilite">
+            <h2 className="cand-eligibilite-titre">{te('titre')}</h2>
+            <p className="cand-eligibilite-intro">{te('intro')}</p>
+            <ul className="cand-eligibilite-liste">
+              {CRITERES.map((critere) => (
+                <li key={critere}>{te(critere)}</li>
+              ))}
+            </ul>
+          </section>
         </div>
 
-        {/* Indicateur d'étapes */}
-        <div className="conteneur mb-10">
-          <div className="flex items-center justify-between">
-            {titresEtapes.map((titre, i) => (
-              <div key={i} className="flex items-center flex-1">
-                <div className="flex flex-col items-center">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${etape > i + 1 ? 'bg-[#C9A84C] text-black' : etape === i + 1 ? 'bg-[#C9A84C] text-black ring-4 ring-[#C9A84C]/20' : 'border-2 border-white/20 text-gray-500'}`}>
-                    {etape > i + 1 ? '✓' : i + 1}
-                  </div>
-                  <span className={`text-[10px] mt-2 tracking-[0.1em] uppercase hidden md:block ${etape === i + 1 ? 'text-[#C9A84C]' : 'text-gray-600'}`}>{titre}</span>
-                </div>
-                {i < 3 && <div className={`flex-1 h-px mx-3 transition-all duration-300 ${etape > i + 1 ? 'bg-[#C9A84C]' : 'bg-white/10'}`} />}
-              </div>
-            ))}
+        <div className="cand-corps" ref={hautFormulaire}>
+
+          <ol className="cand-etapes" aria-label={t('progression', { n: etape, total: TOTAL })}>
+            {titresEtapes.map((titre, i) => {
+              const numeroEtape = i + 1
+              const etat = etape > numeroEtape ? 'faite' : etape === numeroEtape ? 'active' : 'avenir'
+              return (
+                <li key={titre} className={`cand-etape cand-etape-${etat}`}>
+                  <span className="cand-etape-pastille">{etape > numeroEtape ? '✓' : numeroEtape}</span>
+                  <span className="cand-etape-titre">{titre}</span>
+                </li>
+              )
+            })}
+          </ol>
+
+          <div className="cand-progression-mobile">
+            <div className="cand-progression-barre">
+              <span style={{ width: `${(etape / TOTAL) * 100}%` }} />
+            </div>
+            <p>{t('progression', { n: etape, total: TOTAL })} · {titresEtapes[etape - 1]}</p>
           </div>
-        </div>
 
-        {/* Formulaire */}
-        <div className="conteneur">
-          <div className="bg-[#0D0D0D] border border-white/10 p-8 md:p-12">
-
-            {/* Titre étape */}
-            <div className="mb-10">
-              <h2 className="font-display titre-section text-white mb-sm">{titresEtapes[etape - 1]}</h2>
-              <div className="w-12 h-px bg-[#C9A84C]" />
+          <section className="cand-carte">
+            <div className="cand-carte-entete">
+              <h2 className="font-display cand-carte-titre">{titresEtapes[etape - 1]}</h2>
+              <p className="cand-carte-intro">{t(`etape${etape}Intro`)}</p>
             </div>
 
-            {/* ÉTAPE 1 */}
-            {etape === 1 && (
-              <div className="space-y-8">
-                <div className="grille-2">
-                  {[
-                    { label: 'Nom', name: 'nom', required: true },
-                    { label: 'Prénoms', name: 'prenom', required: true },
-                    { label: 'Âge', name: 'age', required: true, type: 'number' },
-                    { label: 'Nationalité', name: 'nationalite', required: true },
-                    { label: 'Adresse email', name: 'email', required: true, type: 'email' },
-                    { label: 'Téléphone', name: 'telephone' },
-                    { label: 'Adresse & Ville', name: 'adresse', required: true },
-                    { label: 'Facebook / Instagram / TikTok', name: 'reseaux', required: true },
-                  ].map((champ) => (
-                    <div key={champ.name}>
-                      <label className="label-champ">
-                        {champ.label} {champ.required && <span className="text-[#C9A84C]">*</span>}
-                      </label>
-                      <input
-                        type={champ.type || 'text'}
-                        name={champ.name}
-                        value={(form as any)[champ.name]}
-                        onChange={maj}
-                        className="w-full bg-black border border-white/15 focus:border-[#C9A84C] text-white text-base px-5 py-4 outline-none transition-colors duration-200 placeholder-gray-700"
-                      />
-                    </div>
-                  ))}
-                </div>
-                <div className="grille-2 pt-4 border-t border-white/5">
-                  {[
-                    { label: 'Êtes-vous mariée ?', name: 'mariee', required: true },
-                    { label: 'Avez-vous des enfants ?', name: 'enfants', required: true },
-                  ].map((champ) => (
-                    <div key={champ.name}>
-                      <label className="label-champ mb-md">
-                        {champ.label} <span className="text-[#C9A84C]">*</span>
-                      </label>
-                      <div className="flex gap-8">
-                        {['Oui', 'Non'].map((v) => (
-                          <label key={v} className="flex items-center gap-3 cursor-pointer group">
-                            <input type="radio" name={champ.name} value={v} checked={(form as any)[champ.name] === v} onChange={maj} className="accent-[#C9A84C] w-4 h-4" />
-                            <span className="text-gray-200 text-base group-hover:text-white transition-colors">{v}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
+            {ETAPES[etape - 1].groupes.map((groupe, index) => (
+              <div key={groupe.titre ?? index} className="cand-groupe">
+                {groupe.titre && <p className="cand-groupe-titre">{t(groupe.titre)}</p>}
+                <div className="cand-grille">{groupe.champs.map(rendreChamp)}</div>
+              </div>
+            ))}
+
+            {etape === 3 && form.passeport === 'Oui' && (
+              <div className="cand-groupe cand-groupe-encadre">
+                <p className="cand-groupe-titre">{t('sousSectionPasseport')}</p>
+                <div className="cand-grille">
+                  {rendreChamp({ nom: 'numeroPasport', requis: true })}
+                  {rendreChamp({ nom: 'expirationPasseport', type: 'date', requis: true })}
                 </div>
               </div>
             )}
 
-            {/* ÉTAPE 2 */}
-            {etape === 2 && (
-              <div className="space-y-8">
-                {[
-                  { label: 'Profession ou études en cours', name: 'profession', required: true },
-                  { label: 'Dernier diplôme obtenu', name: 'diplome', required: true },
-                  { label: 'Langues étrangères parlées et niveau', name: 'langues', required: true },
-                ].map((champ) => (
-                  <div key={champ.name}>
-                    <label className="label-champ">
-                      {champ.label} <span className="text-[#C9A84C]">*</span>
-                    </label>
-                    <input type="text" name={champ.name} value={(form as any)[champ.name]} onChange={maj} className="champ-input" />
-                  </div>
-                ))}
-                {[
-                  { label: 'Si vous étiez élue Miss Ronde, quel serait votre rêve ?', name: 'reve' },
-                  { label: "Intervenez-vous auprès d'une association caritative ? Si oui, laquelle ?", name: 'association' },
-                  { label: 'Votre ambition dans la vie', name: 'ambition' },
-                ].map((champ) => (
-                  <div key={champ.name}>
-                    <label className="label-champ">{champ.label}</label>
-                    <textarea name={champ.name} value={(form as any)[champ.name]} onChange={maj} rows={4} className="champ-textarea" />
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* ÉTAPE 3 */}
-            {etape === 3 && (
-              <div className="space-y-8">
-                {[
-                  { label: 'Avez-vous déjà voyagé ?', name: 'voyage' },
-                  { label: "Disposez-vous d'un passeport ?", name: 'passeport', required: true },
-                ].map((champ) => (
-                  <div key={champ.name}>
-                    <label className="label-champ mb-md">
-                      {champ.label} {champ.required && <span className="text-[#C9A84C]">*</span>}
-                    </label>
-                    <div className="flex gap-8">
-                      {['Oui', 'Non'].map((v) => (
-                        <label key={v} className="flex items-center gap-3 cursor-pointer group">
-                          <input type="radio" name={champ.name} value={v} checked={(form as any)[champ.name] === v} onChange={maj} className="accent-[#C9A84C] w-4 h-4" />
-                          <span className="text-gray-200 text-base group-hover:text-white transition-colors">{v}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-                {form.passeport === 'Oui' && (
-                  <div className="grille-2 p-6 border border-[#C9A84C]/20 bg-[#C9A84C]/5">
-                    <div>
-                      <label className="label-champ">Numéro de passeport <span className="text-[#C9A84C]">*</span></label>
-                      <input type="text" name="numeroPasport" value={form.numeroPasport} onChange={maj} className="champ-input" />
-                    </div>
-                    <div>
-                      <label className="label-champ">Date d'expiration <span className="text-[#C9A84C]">*</span></label>
-                      <input type="date" name="expirationPasseport" value={form.expirationPasseport} onChange={maj} className="champ-input" />
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* ÉTAPE 4 */}
             {etape === 4 && (
-              <div className="space-y-8">
-                <div className="grille-2">
-                  {[
-                    { label: 'Taille sans talons (cm)', name: 'taille', required: true },
-                    { label: 'Poids (kg)', name: 'poids', required: true },
-                    { label: 'Tour de buste (m)', name: 'buste', required: true },
-                    { label: 'Tour de taille (m)', name: 'tourTaille', required: true },
-                    { label: 'Tour de hanche (m)', name: 'hanche', required: true },
-                    { label: 'Tour de bassin (m)', name: 'bassin', required: true },
-                    { label: 'Pointure', name: 'pointure', required: true },
-                    { label: 'Taille confection', name: 'confection', required: true },
-                    { label: 'Couleur des yeux', name: 'yeux', required: true },
-                    { label: 'Couleur des cheveux', name: 'cheveux', required: true },
-                  ].map((champ) => (
-                    <div key={champ.name}>
-                      <label className="label-champ">
-                        {champ.label} {champ.required && <span className="text-[#C9A84C]">*</span>}
-                      </label>
-                      <input type="text" name={champ.name} value={(form as any)[champ.name]} onChange={maj} className="champ-input" />
-                    </div>
-                  ))}
-                </div>
+              <>
+                <p className="cand-note-confidentialite">{t('aides.mensurations')}</p>
 
-                {/* Cases à cocher obligatoires */}
-                <div className="space-y-5 pt-6 border-t border-white/10">
-                  <p className="text-[#C9A84C] text-[11px] tracking-[0.3em] uppercase mb-4">Autorisations obligatoires</p>
+                <div className="cand-groupe">
+                  <p className="cand-groupe-titre">{t('sousSectionAutorisations')}</p>
 
-                  <label className={`flex items-start gap-4 cursor-pointer p-5 border transition-all duration-200 ${droitsImage ? 'border-[#C9A84C]/50 bg-[#C9A84C]/5' : 'border-white/10 hover:border-white/20'}`}>
+                  <label className={`cand-consentement ${droitsImage ? 'cand-consentement-actif' : ''}`}>
                     <input
                       type="checkbox"
                       checked={droitsImage}
-                      onChange={(e) => { setDroitsImage(e.target.checked); setErreurCase('') }}
-                      className="accent-[#C9A84C] w-5 h-5 mt-0.5 flex-shrink-0"
+                      onChange={(e) => { setDroitsImage(e.target.checked); setErreurGenerale('') }}
                     />
-                    <span className="text-gray-300 text-sm leading-relaxed">
-                      <span className="text-white font-medium">Autorisation de droits à l'image *</span>
-                      <br />
-                      Je soussignée, candidate à Miss Ronde Cameroun 11ème édition 2026, autorise expressément l'Association Femme Ronde Cameroun à utiliser mon image, ma voix, mes photos et vidéos réalisées dans le cadre du concours, à des fins de communication, promotion et diffusion sur tous supports (réseaux sociaux, presse, télévision, site internet, affiches), sans limitation de durée ni de territoire, et ce sans contrepartie financière.
+                    <span>
+                      <strong>{t('droitsImageTitre')} <span className="cand-requis">*</span></strong>
+                      {t('droitsImageTexte')}
                     </span>
                   </label>
 
-                  <label className={`flex items-start gap-4 cursor-pointer p-5 border transition-all duration-200 ${accepteReglement ? 'border-[#C9A84C]/50 bg-[#C9A84C]/5' : 'border-white/10 hover:border-white/20'}`}>
+                  <label className={`cand-consentement ${accepteReglement ? 'cand-consentement-actif' : ''}`}>
                     <input
                       type="checkbox"
                       checked={accepteReglement}
-                      onChange={(e) => { setAccepteReglement(e.target.checked); setErreurCase('') }}
-                      className="accent-[#C9A84C] w-5 h-5 mt-0.5 flex-shrink-0"
+                      onChange={(e) => { setAccepteReglement(e.target.checked); setErreurGenerale('') }}
                     />
-                    <span className="text-gray-300 text-sm leading-relaxed">
-                      <span className="text-white font-medium">Acceptation du règlement *</span>
-                      <br />
-                      J'ai lu et j'accepte le règlement officiel du concours Miss Ronde Cameroun 2026. Je certifie que les informations fournies sont exactes et m'engage à respecter toutes les conditions de participation.{' '}
-                      <a href="https://missrondecameroun.com/wp-content/uploads/2025/06/formulaire-dinscription_mrbc2019.pdf" target="_blank" rel="noopener noreferrer" className="text-[#C9A84C] underline hover:text-[#E8C97A]">
-                        Lire le règlement
-                      </a>
+                    <span>
+                      <strong>{t('reglementTitre')} <span className="cand-requis">*</span></strong>
+                      {t('reglementTexte')}{' '}
+                      <Link href={'/' + locale + '/legal/reglement-concours'} className="cand-lien">
+                        {t('lireReglement')}
+                      </Link>
                     </span>
                   </label>
-
-                  {erreurCase && (
-                    <div className="bg-red-900/20 border border-red-500/30 text-red-400 text-sm px-5 py-4">
-                      ⚠ {erreurCase}
-                    </div>
-                  )}
                 </div>
-              </div>
+              </>
             )}
 
-            {/* Navigation */}
-            <div className="flex justify-between mt-12 pt-8 border-t border-white/10">
-              {etape > 1 ? (
-                <button onClick={() => setEtape(etape - 1)} className="border border-white/30 hover:border-white text-white text-[11px] font-medium tracking-[0.2em] uppercase px-8 py-4 transition-all duration-300">
-                  ← Précédent
-                </button>
-              ) : <div />}
+            {erreurGenerale && (
+              <p className="cand-alerte" role="alert">⚠ {erreurGenerale}</p>
+            )}
 
-              {etape < 4 ? (
-                <button onClick={etapeSuivante} className="bg-[#C9A84C] hover:bg-[#E8C97A] text-black text-[11px] font-bold tracking-[0.2em] uppercase px-10 py-4 transition-all duration-300">
-                  Suivant →
+            <div className="cand-navigation">
+              {etape > 1 ? (
+                <button type="button" onClick={etapePrecedente} className="btn-contour">
+                  ← {tc('precedent')}
+                </button>
+              ) : (
+                <span />
+              )}
+
+              {etape < TOTAL ? (
+                <button type="button" onClick={etapeSuivante} className="btn-or">
+                  {tc('suivant')} →
                 </button>
               ) : (
                 <button
+                  type="button"
                   onClick={soumettre}
-                  disabled={envoi === 'envoi' || !droitsImage || !accepteReglement}
-                  className={`text-[11px] font-bold tracking-[0.2em] uppercase px-10 py-4 transition-all duration-300 ${droitsImage && accepteReglement ? 'bg-[#C9A84C] hover:bg-[#E8C97A] text-black' : 'bg-white/10 text-gray-600 cursor-not-allowed'}`}
+                  disabled={envoi === 'envoi'}
+                  className="btn-or"
                 >
-                  {envoi === 'envoi' ? 'Envoi en cours...' : 'Soumettre ma candidature'}
+                  {envoi === 'envoi' ? tc('envoi') : t('boutonSoumettre')}
                 </button>
               )}
             </div>
-          </div>
+          </section>
 
           {envoi === 'erreur' && (
-            <div className="mt-4 bg-red-900/20 border border-red-500/30 text-red-400 text-sm px-6 py-4 text-center">
-              Une erreur s'est produite. Veuillez réessayer ou contacter missrondecameroun@gmail.com
-            </div>
+            <p className="cand-alerte" role="alert">{t('erreurEnvoi')}</p>
           )}
         </div>
       </div>

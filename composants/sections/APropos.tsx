@@ -3,8 +3,7 @@
 import { useTranslations } from 'next-intl'
 import { useEffect, useRef, useState } from 'react'
 
-function TexteDefilant() {
-  const texte = "MISS RONDE CAMEROUN \u2022 JE SUIS RONDEMENT BELLE ET JE M'ASSUME \u2022 "
+function TexteDefilant({ texte }: { texte: string }) {
   return (
     <div style={{overflow:'hidden',padding:'18px 0',background:'#C9A84C'}}>
       <div style={{display:'flex',whiteSpace:'nowrap',animation:'defilement 20s linear infinite'}}>
@@ -53,6 +52,7 @@ function StatAnime({ nombre, label }: { nombre: string; label: string }) {
 
 export default function APropos() {
   const t = useTranslations('apropos')
+  const th = useTranslations('hero')
   const [visible, setVisible] = useState(false)
   const ref = useRef<HTMLElement>(null)
 
@@ -64,7 +64,7 @@ export default function APropos() {
 
   return (
     <>
-      <TexteDefilant />
+      <TexteDefilant texte={`MISS RONDE CAMEROUN \u2022 ${th('slogan').toUpperCase()} \u2022 `} />
       <section ref={ref} className="section-apropos" style={{opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(40px)', transition:'all 1s ease'}}>
         <div className="wrapper">
           <div className="apropos-grille">
@@ -79,7 +79,7 @@ export default function APropos() {
               <div style={{display:'flex',alignItems:'center',gap:'16px',marginTop:'40px'}}>
                 <span className="ligne-or-sm" />
                 <span style={{fontFamily:'var(--font-accent),Georgia,serif',fontSize:'20px',fontStyle:'italic',color:'#C9A84C'}}>
-                  La beauté sans frontières
+                  {t('signature')}
                 </span>
               </div>
             </div>

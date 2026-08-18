@@ -31,8 +31,8 @@ export default function CommentParticiper({ locale }: { locale: string }) {
         <div className={`transition-all duration-1000 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
 
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-px bg-[#C9A84C]" />
-            <span className="text-[10px] font-medium tracking-[0.4em] uppercase text-[#C9A84C]">
+            <div className="w-8 h-px bg-[#7A5E20]" />
+            <span className="text-[11px] font-semibold tracking-[0.35em] uppercase text-[#7A5E20]">
               {t('label')}
             </span>
           </div>
@@ -59,7 +59,7 @@ export default function CommentParticiper({ locale }: { locale: string }) {
                 <h3 className="font-display text-xl font-normal text-[#1A1714] mb-3">
                   {etape.titre}
                 </h3>
-                <p className="text-[14px] text-[#4A4438] leading-relaxed">
+                <p className="text-[15px] text-[#4A4438] leading-relaxed">
                   {etape.texte}
                 </p>
               </div>

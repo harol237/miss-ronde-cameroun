@@ -36,7 +36,7 @@ export default function BanniereTickets({ locale }: { locale: string }) {
 
         <div className="flex items-center justify-center gap-3 mb-8">
           <div className="w-12 h-px bg-[#C9A84C]/50" />
-          <span className="text-[10px] font-medium tracking-[0.4em] uppercase text-[#C9A84C]">
+          <span className="text-[11px] font-semibold tracking-[0.35em] uppercase text-[#C9A84C]">
             {t('label')}
           </span>
           <div className="w-12 h-px bg-[#C9A84C]/50" />
@@ -46,16 +46,16 @@ export default function BanniereTickets({ locale }: { locale: string }) {
           {t('titre')}
         </h2>
 
-        <p className="text-[14px] text-gray-200 leading-relaxed mb-12 max-w-lg mx-auto">
+        <p className="text-[16px] text-gray-200 leading-relaxed mb-12 max-w-lg mx-auto">
           {t('desc')}
         </p>
 
         {/* Icônes moyens de paiement */}
         <div className="flex flex-wrap items-center justify-center gap-6 mb-12">
-          {['Carte bancaire', 'PayPal', 'Orange Money', 'MTN Mobile Money'].map((moyen) => (
-            <div key={moyen} className="flex items-center gap-2 px-4 py-2 border border-white/10 rounded-sm">
+          {['moyen1', 'moyen2', 'moyen3', 'moyen4'].map((cle) => (
+            <div key={cle} className="flex items-center gap-2 px-4 py-2 border border-white/10 rounded-sm">
               <div className="w-2 h-2 rounded-full bg-[#C9A84C]" />
-              <span className="text-[11px] tracking-[0.1em] text-gray-200">{moyen}</span>
+              <span className="text-[12px] tracking-[0.1em] text-gray-200">{t(cle)}</span>
             </div>
           ))}
         </div>

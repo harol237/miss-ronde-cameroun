@@ -3,113 +3,116 @@
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 
-const reseaux = [
-  { nom: 'Instagram', href: 'https://www.instagram.com/missrondecamerounofficiel', sigle: 'IG' },
-  { nom: 'Facebook', href: 'https://www.facebook.com/share/18koDeNzwe/', sigle: 'FB' },
-  { nom: 'YouTube', href: 'https://youtube.com/@missrondecamerounofficiel', sigle: 'YT' },
-]
-
-const legal = [
-  { href: '/legal/mentions-legales', label: 'Mentions legales' },
-  { href: '/legal/politique-confidentialite', label: 'Politique de confidentialite' },
-  { href: '/legal/conditions-generales-vente', label: 'CGV' },
-  { href: '/legal/conditions-generales-utilisation', label: 'CGU' },
-  { href: '/legal/reglement-concours', label: 'Reglement du concours' },
-  { href: '/legal/charte-inclusive', label: 'Charte inclusive' },
-]
+import { CONTACT, RESEAUX } from '@/contenu/evenement'
 
 export default function PiedDePage({ locale }: { locale: string }) {
   const t = useTranslations('footer')
   const tn = useTranslations('nav')
+  const th = useTranslations('hero')
 
   const liens = [
     { href: '/', label: tn('accueil') },
+    { href: '/a-propos', label: tn('aPropos') },
     { href: '/candidatures', label: tn('candidatures') },
     { href: '/galerie', label: tn('galerie') },
     { href: '/editions', label: tn('editions') },
     { href: '/actualites', label: tn('actualites') },
     { href: '/billetterie', label: tn('billetterie') },
     { href: '/contact', label: tn('contact') },
-    { href: '/a-propos', label: tn('aPropos') },
+  ]
+
+  const legal = [
+    { href: '/legal/mentions-legales', label: t('mentions') },
+    { href: '/legal/politique-confidentialite', label: t('confidentialite') },
+    { href: '/legal/conditions-generales-vente', label: t('cgv') },
+    { href: '/legal/conditions-generales-utilisation', label: t('cgu') },
+    { href: '/legal/reglement-concours', label: t('reglement') },
+    { href: '/legal/charte-inclusive', label: t('charte') },
   ]
 
   return (
-    <footer className="bg-[#111111] border-t border-[#C9A84C]/10">
-      <div className="h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent" />
-      <div className="max-w-7xl mx-auto px-6 lg:px-16 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          <div className="lg:col-span-1">
-            <Link href={'/' + locale} className="flex flex-col leading-none mb-6">
-              <span className="font-display text-lg font-bold text-white tracking-wide">
-                Miss Ronde Cameroun
-              </span>
-              <span className="text-[10px] font-light tracking-[0.3em] text-[#C9A84C] uppercase mt-0.5">
-                Cameroun
-              </span>
+    <footer className="pied">
+      <div className="pied-filet" />
+      <div className="pied-inner">
+        <div className="pied-grille">
+
+          <div className="pied-colonne pied-colonne-marque">
+            <Link href={'/' + locale} className="pied-marque">
+              <span className="pied-marque-nom">Miss Ronde Cameroun</span>
+              <span className="pied-marque-devise">{t('slogan')}</span>
             </Link>
-            <p className="text-[13px] text-gray-100 leading-relaxed mb-6 max-w-[220px]">
-              {t('slogan')}
-            </p>
-            <p className="font-accent text-base italic text-[#C9A84C]/60">
-              Je suis Rondement Belle et je m&apos;assume
-            </p>
-            <div className="flex gap-3 mt-6">
-              {reseaux.map((r) => (
-                <a key={r.nom} href={r.href} target="_blank" rel="noopener noreferrer" aria-label={r.nom}
-                  className="w-9 h-9 border border-[#C9A84C]/25 flex items-center justify-center text-[11px] font-medium text-gray-100 hover:text-[#C9A84C] hover:border-[#C9A84C] transition-all duration-300">
+            <p className="pied-citation">{th('slogan')}</p>
+            <div className="pied-reseaux">
+              {RESEAUX.map((r) => (
+                <a
+                  key={r.nom}
+                  href={r.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={r.nom}
+                  className="pied-reseau"
+                >
                   {r.sigle}
                 </a>
               ))}
             </div>
           </div>
-          <div>
-            <h4 className="text-[10px] font-semibold tracking-[0.3em] uppercase text-[#C9A84C] mb-6">
-              {t('navigation')}
-            </h4>
-            <ul className="space-y-3">
+
+          <div className="pied-colonne">
+            <h2 className="pied-titre">{t('navigation')}</h2>
+            <ul className="pied-liste">
               {liens.map((lien) => (
                 <li key={lien.href}>
-                  <Link href={'/' + locale + lien.href}
-                    className="text-[13px] text-gray-100 hover:text-[#E8C97A] transition-colors duration-200">
+                  <Link
+                    href={'/' + locale + (lien.href === '/' ? '' : lien.href)}
+                    className="pied-lien"
+                  >
                     {lien.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-          <div>
-            <h4 className="text-[10px] font-semibold tracking-[0.3em] uppercase text-[#C9A84C] mb-6">Legal</h4>
-            <ul className="space-y-3">
+
+          <div className="pied-colonne">
+            <h2 className="pied-titre">{t('legal')}</h2>
+            <ul className="pied-liste">
               {legal.map((l) => (
                 <li key={l.href}>
-                  <Link href={'/' + locale + l.href}
-                    className="text-[13px] text-gray-100 hover:text-[#E8C97A] transition-colors duration-200">
+                  <Link href={'/' + locale + l.href} className="pied-lien">
                     {l.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-          <div>
-            <h4 className="text-[10px] font-semibold tracking-[0.3em] uppercase text-[#C9A84C] mb-6">
-              {t('contact')}
-            </h4>
-            <ul className="space-y-4">
-              <li><a href="mailto:missrondecameroun@gmail.com" className="text-[13px] text-gray-100 hover:text-[#E8C97A] transition-colors duration-200 block">missrondecameroun@gmail.com</a></li>
-              <li><a href="tel:+237675238097" className="text-[13px] text-gray-100 hover:text-[#E8C97A] transition-colors duration-200 block">+237 6 75 23 80 97</a></li>
-              <li className="text-[13px] text-gray-100">Yaounde, Cameroun</li>
+
+          <div className="pied-colonne">
+            <h2 className="pied-titre">{t('contact')}</h2>
+            <ul className="pied-liste">
+              <li>
+                <a href={`mailto:${CONTACT.email}`} className="pied-lien">
+                  {CONTACT.email}
+                </a>
+              </li>
+              <li>
+                <a href={CONTACT.telephoneLien} className="pied-lien">
+                  {CONTACT.telephone}
+                </a>
+              </li>
+              <li className="pied-texte">{t('ville')}</li>
             </ul>
-            <Link href={'/' + locale + '/candidatures'}
-              className="inline-block mt-8 bg-[#C9A84C]/10 hover:bg-[#C9A84C] border border-[#C9A84C]/30 hover:border-[#C9A84C] text-[#C9A84C] hover:text-black text-[10px] font-bold tracking-[0.2em] uppercase px-6 py-3 transition-all duration-300">
-              Candidater 2026
+            <Link href={'/' + locale + '/candidatures'} className="pied-cta">
+              {t('candidater')}
             </Link>
           </div>
         </div>
       </div>
-      <div className="border-t border-gray-700">
-        <div className="max-w-7xl mx-auto px-6 lg:px-16 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-[11px] text-gray-100 tracking-wide">{t('droits')}</p>
-          <p className="text-[11px] text-gray-100 tracking-wide">missrondecameroun.cm</p>
+
+      <div className="pied-bas">
+        <div className="pied-bas-inner">
+          <p>{t('droits')}</p>
+          <p>missrondecameroun.cm</p>
         </div>
       </div>
     </footer>

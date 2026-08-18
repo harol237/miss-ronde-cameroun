@@ -1,0 +1,16 @@
+PHOTOS DES EDITIONS
+===================
+
+Deposez ici une photo par edition, nommee avec l'annee :
+
+    2016.jpg  2017.jpg  2018.jpg  ...  2025.jpg  2026.jpg
+
+Puis renseignez le champ `photo` de l'edition correspondante dans
+contenu/editions.ts, par exemple :
+
+    { annee: '2025', statut: 'passee', photo: '/images/editions/2025.jpg' },
+
+Une edition sans photo garde la carte sobre (annee sur fond clair) :
+le site reste correct tant que les images ne sont pas fournies.
+
+Format conseille : portrait ou carre, 1200 px de large minimum, JPG.
